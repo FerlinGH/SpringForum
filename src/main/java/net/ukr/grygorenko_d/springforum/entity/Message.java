@@ -20,14 +20,15 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "user_id")
 	private User author;
-	
+
 	@Column(name = "created")
 	private LocalDateTime creationTime;
-	
+
 	@Column(name = "message_body")
 	private String messageBody;
 
@@ -78,12 +79,5 @@ public class Message {
 	public String toString() {
 		return "Message [id=" + id + ", creationTime=" + creationTime + ", messageBody=" + messageBody + "]";
 	}
-	
-	
-
-	
-	
-	
-	
 
 }
