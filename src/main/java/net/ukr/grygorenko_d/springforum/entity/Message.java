@@ -25,6 +25,11 @@ public class Message {
 			CascadeType.REFRESH })
 	@JoinColumn(name = "user_id")
 	private User author;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
+	@JoinColumn(name= "topic_id")
+	private Topic topic;
 
 	@Column(name = "created")
 	private LocalDateTime creationTime;
@@ -73,6 +78,14 @@ public class Message {
 
 	public void setMessageBody(String messageBody) {
 		this.messageBody = messageBody;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
 	@Override

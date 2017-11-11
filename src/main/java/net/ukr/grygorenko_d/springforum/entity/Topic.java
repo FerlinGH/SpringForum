@@ -32,8 +32,7 @@ public class Topic {
 	@JoinColumn(name = "user_id")
 	private User author;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "message_id")
+	@OneToMany(mappedBy="topic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Message> messages;
 	
 	
@@ -100,10 +99,13 @@ public class Topic {
 		this.messages = messages;
 	}
 	
+	
+	
 	public void addMessage(Message message) {
 		if (messages == null) {
 			messages = new ArrayList<Message>();
 		}
+		message.setTopic(this);
 		messages.add(message);
 	}
 
