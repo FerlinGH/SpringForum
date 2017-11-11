@@ -22,7 +22,6 @@ public class ForumInitializer {
 	private RoleService roleService;
 	private static Logger LOGGER = LoggerFactory.getLogger(ForumInitializer.class);
 
-
 	@Autowired
 	public ForumInitializer(BoardService boardService, RoleService roleService) {
 		super();
@@ -34,7 +33,7 @@ public class ForumInitializer {
 	public void initDatabase() {
 		roleService.createRole(new Role("ADMIN"));
 		roleService.createRole(new Role("MODERATOR"));
-		
+
 		Board board1 = new Board("Main board");
 		LOGGER.info("Board created: " + board1);
 		Board board2 = new Board("Alternative board");
@@ -44,14 +43,14 @@ public class ForumInitializer {
 		LOGGER.info("User created: " + user1);
 		User user2 = new User("Moderator", null);
 		LOGGER.info("User created: " + user2);
-		
+
 		Role adminRole = roleService.getRoleByName("ADMIN");
 		Role moderatorRole = roleService.getRoleByName("MODERATOR");
 
 		user1.addRole(adminRole);
 		user1.addRole(moderatorRole);
 		user2.addRole(moderatorRole);
-		
+
 		Topic topic1 = new Topic("General announcement", user1);
 		LOGGER.info("Topic created: " + topic1);
 		Topic topic2 = new Topic("To whom it may concern", user2);

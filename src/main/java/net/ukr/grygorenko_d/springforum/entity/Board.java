@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,9 +23,11 @@ public class Board {
 
 	@Column(name = "title")
 	private String title;
+	
+	@Column(name="size")
+	private int size;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "topic_id")
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Topic> topics;
 
 	public Board() {
@@ -53,6 +54,16 @@ public class Board {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 
 	public List<Topic> getTopics() {
 		return topics;
@@ -67,6 +78,8 @@ public class Board {
 			topics = new ArrayList<Topic>();
 		}
 		topics.add(topic);
+		topic.setBoard(this);
+		size++;
 	}
 
 	@Override
