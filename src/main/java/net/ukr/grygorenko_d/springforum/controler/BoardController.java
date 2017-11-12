@@ -34,7 +34,6 @@ public class BoardController {
 	public String showTopics(@RequestParam("boardId") int boardId, Model model) {
 		model.addAttribute("board", boardService.getBoardById(boardId));
 		List<Topic> topicsList = boardService.listTopics(boardId);
-		System.out.println(topicsList);
 		model.addAttribute("topicsList", topicsList);
 		model.addAttribute("topicsMap", boardService.generateTopicsMap(topicsList));
 		return "list-topics";

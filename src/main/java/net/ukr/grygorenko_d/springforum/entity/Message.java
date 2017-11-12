@@ -1,6 +1,7 @@
 package net.ukr.grygorenko_d.springforum.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,9 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "title")
+	private String title;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -32,7 +36,7 @@ public class Message {
 	private Topic topic;
 
 	@Column(name = "created")
-	private LocalDateTime creationTime;
+	private String creationTime;
 
 	@Column(name = "message_body")
 	private String messageBody;
@@ -45,7 +49,13 @@ public class Message {
 		super();
 		this.author = author;
 		this.messageBody = messageBody;
-		this.creationTime = LocalDateTime.now();
+		this.creationTime = describeCurrentTime();
+	}
+
+	private final String describeCurrentTime() {
+		LocalDateTime currentTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return currentTime.format(formatter).toString();
 	}
 
 	public int getId() {
@@ -56,6 +66,14 @@ public class Message {
 		this.id = id;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public User getAuthor() {
 		return author;
 	}
@@ -64,11 +82,11 @@ public class Message {
 		this.author = author;
 	}
 
-	public LocalDateTime getCreationTime() {
+	public String getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(LocalDateTime creationTime) {
+	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
 	}
 

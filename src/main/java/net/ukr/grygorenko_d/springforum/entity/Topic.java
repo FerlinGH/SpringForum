@@ -1,6 +1,5 @@
 package net.ukr.grygorenko_d.springforum.entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +40,11 @@ public class Topic {
 	@OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Message> messages;
 
-	@Column(name="size")
+	@Column(name = "size")
 	private int size;
-	
-	@Column(name="last_message")
-	private LocalDateTime lastMessageTime;
+
+	@Column(name = "last_message")
+	private String lastMessageTime;
 
 	public Topic() {
 		super();
@@ -57,12 +56,12 @@ public class Topic {
 		this.author = author;
 	}
 
-//	public Topic(String title, User author, Board board) {
-//		super();
-//		this.title = title;
-//		this.author = author;
-//		this.board = board;
-//	}
+	// public Topic(String title, User author, Board board) {
+	// super();
+	// this.title = title;
+	// this.author = author;
+	// this.board = board;
+	// }
 
 	public int getId() {
 		return id;
@@ -103,8 +102,6 @@ public class Topic {
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-	
-	
 
 	public int getSize() {
 		return size;
@@ -114,11 +111,11 @@ public class Topic {
 		this.size = size;
 	}
 
-	public LocalDateTime getLastMessageTime() {
+	public String getLastMessageTime() {
 		return lastMessageTime;
 	}
 
-	public void setLastMessageTime(LocalDateTime lastMessageTime) {
+	public void setLastMessageTime(String lastMessageTime) {
 		this.lastMessageTime = lastMessageTime;
 	}
 
@@ -126,12 +123,14 @@ public class Topic {
 		if (messages == null) {
 			messages = new ArrayList<Message>();
 		}
+		if(message.getTitle() == null) {
+			message.setTitle(this.getTitle());
+		}
 		message.setTopic(this);
 		messages.add(message);
 		size++;
 		lastMessageTime = message.getCreationTime();
 	}
-	
 
 	@Override
 	public String toString() {
