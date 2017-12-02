@@ -13,5 +13,4 @@ public interface TopicDAO {
 
 	public Topic getTopicById(int topicId);
 
-
 }

@@ -45,5 +45,4 @@ public class TopicDAOImpl implements TopicDAO {
 		return topic;
 	}
 
-	
 }

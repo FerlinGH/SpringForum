@@ -30,7 +30,7 @@ public class Topic {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "user_id")
-	private User author;
+	private ForumMember author;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -50,7 +50,7 @@ public class Topic {
 		super();
 	}
 
-	public Topic(String title, User author) {
+	public Topic(String title, ForumMember author) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -79,11 +79,11 @@ public class Topic {
 		this.title = title;
 	}
 
-	public User getAuthor() {
+	public ForumMember getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(ForumMember author) {
 		this.author = author;
 	}
 

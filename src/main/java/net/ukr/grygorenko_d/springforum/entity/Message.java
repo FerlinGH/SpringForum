@@ -28,7 +28,7 @@ public class Message {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "user_id")
-	private User author;
+	private ForumMember author;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -45,7 +45,7 @@ public class Message {
 		super();
 	}
 
-	public Message(User author, String messageBody) {
+	public Message(ForumMember author, String messageBody) {
 		super();
 		this.author = author;
 		this.messageBody = messageBody;
@@ -74,11 +74,11 @@ public class Message {
 		this.title = title;
 	}
 
-	public User getAuthor() {
+	public ForumMember getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(ForumMember author) {
 		this.author = author;
 	}
 

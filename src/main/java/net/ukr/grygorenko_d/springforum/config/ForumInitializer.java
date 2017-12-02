@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import net.ukr.grygorenko_d.springforum.entity.Board;
+import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 import net.ukr.grygorenko_d.springforum.entity.Role;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
-import net.ukr.grygorenko_d.springforum.entity.User;
 import net.ukr.grygorenko_d.springforum.service.BoardService;
 import net.ukr.grygorenko_d.springforum.service.RoleService;
 
@@ -39,9 +39,9 @@ public class ForumInitializer {
 		Board board2 = new Board("Alternative board");
 		LOGGER.info("Board created: " + board2);
 
-		User user1 = new User("Admin", null);
+		ForumMember user1 = new ForumMember("Admin", null);
 		LOGGER.info("User created: " + user1);
-		User user2 = new User("Moderator", null);
+		ForumMember user2 = new ForumMember("Moderator", null);
 		LOGGER.info("User created: " + user2);
 
 		Role adminRole = roleService.getRoleByName("ADMIN");
@@ -60,9 +60,12 @@ public class ForumInitializer {
 		LOGGER.info("New message: " + message1);
 		Message message2 = new Message(user2, "It's showtime!");
 		LOGGER.info("New message: " + message2);
+		Message message3 = new Message(user1, "Second message");
+		LOGGER.info("New message: " + message3);
 
 		topic1.addMessage(message1);
 		topic2.addMessage(message2);
+		topic1.addMessage(message3);
 
 		board1.addTopic(topic1);
 		board2.addTopic(topic2);

@@ -28,10 +28,10 @@ public class Role {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-	@JoinTable(name = "user_role", 
+	@JoinTable(name = "visotor_role", 
 				joinColumns = @JoinColumn(name = "role_id"), 
-				inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users;
+				inverseJoinColumns = @JoinColumn(name = "visitor_id"))
+	private List<ForumMember> visitors;
 
 	public Role() {
 		super();
@@ -50,19 +50,19 @@ public class Role {
 		this.roleType = roleType;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<ForumMember> getVisitors() {
+		return visitors;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUsers(List<ForumMember> visitors) {
+		this.visitors = visitors;
 	}
 
-	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<User>();
+	public void addUser(ForumMember visitor) {
+		if (visitors == null) {
+			visitors = new ArrayList<ForumMember>();
 		}
-		users.add(user);
+		visitors.add(visitor);
 	}
 
 	@Override

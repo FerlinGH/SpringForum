@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	public Map<Integer, String> generateTopicsMap(List<Topic> topicsList) {
 		Map<Integer, String> topicsMap = new HashMap<>();
-		for(Topic tempTopic: topicsList) {
+		for (Topic tempTopic : topicsList) {
 			topicsMap.put(tempTopic.getId(), topicDAO.getCreatorsNicknameByTopic(tempTopic));
 		}
 

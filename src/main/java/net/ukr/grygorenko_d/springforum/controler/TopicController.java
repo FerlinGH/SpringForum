@@ -34,7 +34,7 @@ public class TopicController {
 		model.addAttribute("topic", topicService.getTopicById(topicId));
 		model.addAttribute("messageList", topicMessagesList);
 		model.addAttribute("messagesMap", topicService.generateMessagesMap(topicMessagesList));
-		return "list-messages";
+		return "messages-agregator";
 
 	}
 
