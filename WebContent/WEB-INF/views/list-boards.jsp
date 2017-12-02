@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to SpringForum!</title>
 
-<spring:url value="/resources/style.css" var="style" />
+<spring:url value="/resources/BoardStyle.css" var="style" />
 <link href="${style}" rel="stylesheet" />
 
 </head>

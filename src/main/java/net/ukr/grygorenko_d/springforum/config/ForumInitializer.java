@@ -11,6 +11,7 @@ import net.ukr.grygorenko_d.springforum.entity.Board;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 import net.ukr.grygorenko_d.springforum.entity.Role;
+import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
 import net.ukr.grygorenko_d.springforum.service.BoardService;
 import net.ukr.grygorenko_d.springforum.service.RoleService;
@@ -31,8 +32,8 @@ public class ForumInitializer {
 
 	@PostConstruct
 	public void initDatabase() {
-		roleService.createRole(new Role("ADMIN"));
-		roleService.createRole(new Role("MODERATOR"));
+		roleService.createRole(new Role(RoleTypes.ADMIN));
+		roleService.createRole(new Role(RoleTypes.MODERATOR));
 
 		Board board1 = new Board("Main board");
 		LOGGER.info("Board created: " + board1);
@@ -44,8 +45,8 @@ public class ForumInitializer {
 		ForumMember user2 = new ForumMember("Moderator", null);
 		LOGGER.info("User created: " + user2);
 
-		Role adminRole = roleService.getRoleByName("ADMIN");
-		Role moderatorRole = roleService.getRoleByName("MODERATOR");
+		Role adminRole = roleService.getRoleByType(RoleTypes.ADMIN);
+		Role moderatorRole = roleService.getRoleByType(RoleTypes.MODERATOR);
 
 		user1.addRole(adminRole);
 		user1.addRole(moderatorRole);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import net.ukr.grygorenko_d.springforum.dao.RoleDAO;
 import net.ukr.grygorenko_d.springforum.entity.Role;
+import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -28,8 +29,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	@Transactional
-	public Role getRoleByName(String roleName) {
-		return roleDAO.getRoleByName(roleName);
+	public Role getRoleByType(RoleTypes roleType) {
+		return roleDAO.getRoleByType(roleType);
 	}
 
 }

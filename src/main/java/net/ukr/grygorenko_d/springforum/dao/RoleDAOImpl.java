@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import net.ukr.grygorenko_d.springforum.entity.Role;
+import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
 
 @Repository
 public class RoleDAOImpl implements RoleDAO {
@@ -21,10 +22,10 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public Role getRoleByName(String roleName) {
+	public Role getRoleByType(RoleTypes roleType) {
 		TypedQuery<Role> query = entityManager
 				.createQuery("SELECT r FROM Role r WHERE (r.roleType = :role)", Role.class);
-		query.setParameter("role", roleName);
+		query.setParameter("role", roleType);
 		Role dbRole = query.getSingleResult();
 		return dbRole;
 	}

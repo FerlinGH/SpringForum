@@ -24,45 +24,43 @@ public class Role {
 	private int id;
 
 	@Column(name = "role_type")
-	private String roleType;
+	private RoleTypes roleType;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-	@JoinTable(name = "visotor_role", 
-				joinColumns = @JoinColumn(name = "role_id"), 
-				inverseJoinColumns = @JoinColumn(name = "visitor_id"))
-	private List<ForumMember> visitors;
+	@JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
+	private List<ForumMember> members;
 
 	public Role() {
 		super();
 	}
 
-	public Role(String roleType) {
+	public Role(RoleTypes roleType) {
 		super();
 		this.roleType = roleType;
 	}
 
-	public String getRoleType() {
+	public RoleTypes getRoleType() {
 		return roleType;
 	}
 
-	public void setRoleType(String roleType) {
+	public void setRoleType(RoleTypes roleType) {
 		this.roleType = roleType;
 	}
 
-	public List<ForumMember> getVisitors() {
-		return visitors;
+	public List<ForumMember> getMembers() {
+		return members;
 	}
 
-	public void setUsers(List<ForumMember> visitors) {
-		this.visitors = visitors;
+	public void setUsers(List<ForumMember> members) {
+		this.members = members;
 	}
 
-	public void addUser(ForumMember visitor) {
-		if (visitors == null) {
-			visitors = new ArrayList<ForumMember>();
+	public void addUser(ForumMember member) {
+		if (members == null) {
+			members = new ArrayList<ForumMember>();
 		}
-		visitors.add(visitor);
+		members.add(member);
 	}
 
 	@Override
