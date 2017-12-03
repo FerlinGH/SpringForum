@@ -78,7 +78,7 @@ public class ForumMember {
 		return memberDetails;
 	}
 
-	public void setUserDetails(ForumMemberDetails memberDetails) {
+	public void setMemberDetails(ForumMemberDetails memberDetails) {
 		this.memberDetails = memberDetails;
 	}
 

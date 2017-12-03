@@ -15,12 +15,20 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id ="header">
+		<div id="header">
 			<h2>Spring Forum: Home Page</h2>
 		</div>
 	</div>
-	
-	<div id="container"> 
+
+	<div id="user-info" align="right">
+		Welcome, Guest! 
+		<a href="${pageContext.request.contextPath}/showLoginPage">Login </a>
+			 or
+		<a href="${pageContext.request.contextPath}/forumMember/create">Create
+			new profile</a>
+	</div>
+
+	<div id="container">
 		<div id="content">
 			<table>
 				<thead>
@@ -31,21 +39,18 @@
 				</thead>
 				<tbody>
 					<c:forEach var="tempBoard" items="${boards}">
-						<tr>	
-							<td align="left">
-								<br>
-								<c:url var="boardLink" value="showBoard">
+						<tr>
+							<td align="left"><br> <c:url var="boardLink"
+									value="showBoard">
 									<c:param name="boardId" value="${tempBoard.id}" />
-								</c:url> 
-								<a href="${boardLink}"><strong> <c:out value="${tempBoard.title}" /></strong></a>
-								<br>
-							</td>
+								</c:url> <a href="${boardLink}"><strong> <c:out
+											value="${tempBoard.title}" /></strong></a> <br></td>
 							<td><c:out value="${tempBoard.size}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-		</div>	
-	</div>		
+		</div>
+	</div>
 </body>
 </html>
