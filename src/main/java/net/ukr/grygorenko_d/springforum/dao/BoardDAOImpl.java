@@ -25,8 +25,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List<Board> getAllBoards() {
-		TypedQuery<Board> query = entityManager
-				.createQuery("SELECT b from Board b ORDER BY id", Board.class);
+		TypedQuery<Board> query = entityManager.createQuery("SELECT b from Board b ORDER BY id", Board.class);
 		List<Board> boards = query.getResultList();
 		return boards;
 	}
@@ -43,11 +42,22 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public Board getBoardById(int boardId) {
-		TypedQuery<Board> query = entityManager
-				.createQuery("SELECT b from Board b WHERE ( id = :param )", Board.class);
+		TypedQuery<Board> query = entityManager.createQuery("SELECT b from Board b WHERE ( id = :param )", Board.class);
 		query.setParameter("param", boardId);
 		Board board = query.getSingleResult();
 		return board;
 	}
+
+	@Override
+	public Board getBoardAndTopicsByBoarId(int boardId) {
+		TypedQuery<Board> query = entityManager
+				.createQuery("SELECT b FROM Board b JOIN FETCH b.topics WHERE b.id = :param", Board.class);
+		query.setParameter("param", boardId);
+		Board board = query.getSingleResult();
+		
+		return board;
+	}
+	
+	
 
 }

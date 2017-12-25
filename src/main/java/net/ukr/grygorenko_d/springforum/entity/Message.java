@@ -1,8 +1,5 @@
 package net.ukr.grygorenko_d.springforum.entity;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +18,7 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "title")
 	private String title;
 
@@ -49,13 +46,6 @@ public class Message {
 		super();
 		this.author = author;
 		this.messageBody = messageBody;
-		this.creationTime = describeCurrentTime();
-	}
-
-	private final String describeCurrentTime() {
-		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		return currentTime.format(formatter).toString();
 	}
 
 	public int getId() {

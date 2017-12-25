@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.ukr.grygorenko_d.springforum.dao.BoardDAO;
 import net.ukr.grygorenko_d.springforum.dao.TopicDAO;
@@ -35,25 +34,25 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Board> listBoards() {
 		return boardDAO.getAllBoards();
 	}
 
 	@Override
-	@Transactional()
+	@Transactional(readOnly = true)
 	public List<Topic> listTopics(int boardId) {
 		return boardDAO.getAllTopics(boardId);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Board getBoardById(int boardId) {
 		return boardDAO.getBoardById(boardId);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Map<Integer, String> generateTopicsMap(List<Topic> topicsList) {
 		Map<Integer, String> topicsMap = new HashMap<>();
 		for (Topic tempTopic : topicsList) {

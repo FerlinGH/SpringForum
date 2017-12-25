@@ -15,4 +15,6 @@ public interface BoardDAO {
 
 	public Board getBoardById(int boardId);
 
+	public Board getBoardAndTopicsByBoarId(int boardId);
+
 }

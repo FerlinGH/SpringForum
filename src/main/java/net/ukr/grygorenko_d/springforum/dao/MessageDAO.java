@@ -6,4 +6,6 @@ public interface MessageDAO {
 
 	public String getMessageCreatorNickname(Message message);
 
+	public void saveMessage(Message message);
+
 }

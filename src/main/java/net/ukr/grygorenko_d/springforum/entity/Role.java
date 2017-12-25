@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Role {
 	private int id;
 
 	@Column(name = "role_type")
+	@Enumerated(EnumType.STRING)
 	private RoleTypes roleType;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
@@ -33,11 +36,13 @@ public class Role {
 
 	public Role() {
 		super();
+		members = new ArrayList<ForumMember>();
 	}
 
 	public Role(RoleTypes roleType) {
 		super();
 		this.roleType = roleType;
+		members = new ArrayList<ForumMember>();
 	}
 
 	public RoleTypes getRoleType() {
@@ -57,9 +62,6 @@ public class Role {
 	}
 
 	public void addUser(ForumMember member) {
-		if (members == null) {
-			members = new ArrayList<ForumMember>();
-		}
 		members.add(member);
 	}
 

@@ -45,4 +45,10 @@ public class TopicDAOImpl implements TopicDAO {
 		return topic;
 	}
 
+	@Override
+	public void saveTopic(Topic topic) {
+		entityManager.merge(topic);
+		
+	}
+
 }

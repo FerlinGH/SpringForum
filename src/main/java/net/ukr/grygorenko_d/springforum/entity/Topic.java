@@ -48,12 +48,14 @@ public class Topic {
 
 	public Topic() {
 		super();
+		messages = new ArrayList<Message>();
 	}
 
 	public Topic(String title, ForumMember author) {
 		super();
 		this.title = title;
 		this.author = author;
+		messages = new ArrayList<Message>();
 	}
 
 	// public Topic(String title, User author, Board board) {
@@ -120,9 +122,6 @@ public class Topic {
 	}
 
 	public void addMessage(Message message) {
-		if (messages == null) {
-			messages = new ArrayList<Message>();
-		}
 		if(message.getTitle() == null) {
 			message.setTitle(this.getTitle());
 		}

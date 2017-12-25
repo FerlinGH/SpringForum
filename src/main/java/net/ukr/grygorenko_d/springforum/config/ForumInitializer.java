@@ -69,7 +69,7 @@ public class ForumInitializer {
 		topic1.addMessage(message3);
 
 		board1.addTopic(topic1);
-		board2.addTopic(topic2);
+		board1.addTopic(topic2);
 
 		boardService.saveBoard(board1);
 		boardService.saveBoard(board2);

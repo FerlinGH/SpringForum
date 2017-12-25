@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to SpringForum!</title>
 
-<spring:url value="/resources/BoardStyle.css" var="style" />
+<spring:url value="/resources/CssStyle.css" var="style" />
 <link href="${style}" rel="stylesheet" />
 
 </head>
@@ -21,11 +21,7 @@
 	</div>
 
 	<div id="user-info" align="right">
-		Welcome, Guest! 
-		<a href="${pageContext.request.contextPath}/showLoginPage">Login </a>
-			 or
-		<a href="${pageContext.request.contextPath}/forumMember/create">Create
-			new profile</a>
+		<c:import url="snippets/user-info.jsp" />
 	</div>
 
 	<div id="container">

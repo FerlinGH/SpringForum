@@ -1,9 +1,10 @@
 package net.ukr.grygorenko_d.springforum.service;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.ukr.grygorenko_d.springforum.dao.RoleDAO;
 import net.ukr.grygorenko_d.springforum.entity.Role;
@@ -28,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Role getRoleByType(RoleTypes roleType) {
 		return roleDAO.getRoleByType(roleType);
 	}

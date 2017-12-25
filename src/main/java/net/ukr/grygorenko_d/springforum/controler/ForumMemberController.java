@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.ForumMemberDetails;
+import net.ukr.grygorenko_d.springforum.helpers.TextFormatter;
 import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
 
 @Controller
@@ -41,10 +42,10 @@ public class ForumMemberController {
 	public String validateTransaction(@ModelAttribute("forumMember") ForumMember forumMember,
 			@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
 			@RequestParam("email") String email, Model model) {
-		forumMember.setNickname(forumMember.getNickname().replaceAll("\\s+", ""));
-		firstName = firstName.replaceAll("\\s+", "");
-		lastName = lastName.replaceAll("\\s+", "");
-		email = email.replaceAll("\\s+", "");
+		forumMember.setNickname(TextFormatter.formatString(forumMember.getNickname()));
+		firstName = TextFormatter.formatString(firstName);
+		lastName = TextFormatter.formatString(lastName);
+		email = TextFormatter.formatString(email);
 
 		Map<Boolean, String> validationStatus = forumMemberService.validateProfile(forumMember, firstName, lastName,
 				email);

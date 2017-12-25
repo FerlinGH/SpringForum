@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.ukr.grygorenko_d.springforum.entity.Message;
+import net.ukr.grygorenko_d.springforum.entity.Topic;
 
 public interface TopicService {
 
@@ -11,6 +12,10 @@ public interface TopicService {
 
 	public Map<Integer, String> generateMessagesMap(List<Message> topicMessagesList);
 
-	public Object getTopicById(int topicId);
+	public Topic getTopicById(int topicId);
+
+	public void saveNewTopic(int boardId, String topicName, Message message);
+
+	public Topic prepareTopic(Topic tempTopic, String topicName);
 
 }

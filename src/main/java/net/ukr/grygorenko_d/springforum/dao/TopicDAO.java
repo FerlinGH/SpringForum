@@ -13,4 +13,6 @@ public interface TopicDAO {
 
 	public Topic getTopicById(int topicId);
 
+	public void saveTopic(Topic topic);
+
 }

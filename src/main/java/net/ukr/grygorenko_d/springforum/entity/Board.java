@@ -32,11 +32,13 @@ public class Board {
 
 	public Board() {
 		super();
+		topics = new ArrayList<>();
 	}
 
 	public Board(String title) {
 		super();
 		this.title = title;
+		topics = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -74,9 +76,6 @@ public class Board {
 	}
 
 	public void addTopic(Topic topic) {
-		if (topics == null) {
-			topics = new ArrayList<Topic>();
-		}
 		topics.add(topic);
 		topic.setBoard(this);
 		size++;

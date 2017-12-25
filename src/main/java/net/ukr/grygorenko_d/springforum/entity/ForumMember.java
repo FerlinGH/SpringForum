@@ -43,19 +43,19 @@ public class ForumMember {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-	@JoinTable(name = "member_role", 
-				joinColumns = @JoinColumn(name = "member_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 
 	public ForumMember() {
 		super();
+		roles = new ArrayList<Role>();
 	}
 
 	public ForumMember(String nickname, ForumMemberDetails memberDetails) {
 		super();
 		this.nickname = nickname;
 		this.memberDetails = memberDetails;
+		roles = new ArrayList<Role>();
 	}
 
 	public int getId() {
@@ -91,9 +91,6 @@ public class ForumMember {
 	}
 
 	public void addRole(Role role) {
-		if (roles == null) {
-			roles = new ArrayList<Role>();
-		}
 		roles.add(role);
 	}
 

@@ -1,4 +1,4 @@
-html, body{
+html, body {
 	background-color: #c0c0c0;
 	margin-left: 15px;
 	margin-right: 15px;
@@ -7,13 +7,13 @@ html, body{
 }
 
 a:link {
-    color: #DD0000;
-    text-decoration: none;
+	color: #DD0000;
+	text-decoration: none;
 }
 
 a:visited {
-    color: #770000;
-    text-decoration: none;
+	color: #770000;
+	text-decoration: none;
 }
 
 table {
@@ -36,11 +36,10 @@ th {
 
 tr {
 	border-top-color: inherit;
-    border-right-color: inherit;
-    border-bottom-color: inherit;
-    border-left-color: inherit;
+	border-right-color: inherit;
+	border-bottom-color: inherit;
+	border-left-color: inherit;
 	text-align: center;
-	
 }
 
 tr:nth-child(even) {
@@ -51,6 +50,23 @@ tr:nth-child(odd) {
 	background: #FFFFFF
 }
 
+#user-info {
+	font-size: 10px;
+	padding: 10px;
+	text-align: right;
+	text-decoration: none;
+}
+
+#topic-table {
+	tr: nth-child(even){ 
+	background: #FFFFFF
+}
+
+tr:nth-child(odd) {
+	background: #c0c0c0
+}
+
+}
 #wrapper {
 	width: 100%;
 	margin-top: 0px;
@@ -60,7 +76,7 @@ tr:nth-child(odd) {
 	width: 100%;
 	background: #c0c0c0;
 	margin-top: 0px;
-	padding: 15px 0px 15px 15px;
+	padding: 12px;
 }
 
 #header h2 {

@@ -10,9 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><c:out value="${board.title}" /></title>
 
-<spring:url value="/resources/TopicListStyle.css" var="style" />
+<spring:url value="/resources/CssStyle.css" var="style" />
 <link href="${style}" rel="stylesheet" />
-
 </head>
 <body>
 	<h2>
@@ -20,29 +19,37 @@
 	</h2>
 	<hr>
 	<br>
-	<table>
-		<thead>
-			<tr>
-				<th>Topic</th>
-				<th>Messages</th>
-				<th>Created By</th>
-				<th>Last Reply</th>
-		</thead>
-		<tbody>
-			<c:forEach var="tempTopic" items="${topicsList}">
+	
+	<form action="${pageContext.request.contextPath}/topic/new"
+		method="GET">
+		<input type="hidden" name="boardId" value="${board.id}" /> 
+		<input type="submit" value="Create new topic" />
+	</form>
+	
+	<div id="topic-table">
+		<table>
+			<thead>
 				<tr>
-					<td><c:url var="topicLink" value="topic/show">
-							<c:param name="topicId" value="${tempTopic.id}" />
-						</c:url> 
-						<a href="${topicLink}"> <c:out value="${tempTopic.title}" /></a>
-					</td>
-					<td><c:out value="${tempTopic.size}" /> </td>
-					<td><c:out value="${topicsMap[tempTopic.id]}" /> </td>
-					<td><c:out value="${tempTopic.lastMessageTime}" /> </td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+					<th>Topic</th>
+					<th>Messages</th>
+					<th>Created By</th>
+					<th>Last Reply</th>
+			</thead>
+			<tbody>
+				<c:forEach var="tempTopic" items="${topicsList}">
+					<tr>
+						<td><c:url var="topicLink" value="topic/show">
+								<c:param name="topicId" value="${tempTopic.id}" />
+							</c:url> <a href="${topicLink}"> <c:out value="${tempTopic.title}" /></a>
+						</td>
+						<td><c:out value="${tempTopic.size}" /></td>
+						<td><c:out value="${topicsMap[tempTopic.id]}" /></td>
+						<td><c:out value="${tempTopic.lastMessageTime}" /></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 
 </body>
 </html>

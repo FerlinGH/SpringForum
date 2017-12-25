@@ -24,4 +24,10 @@ public class MessageDAOImpl implements MessageDAO {
 		return tempMessage.getAuthor().getNickname();
 	}
 
+	@Override
+	public void saveMessage(Message message) {
+		entityManager.merge(message);
+		
+	}
+
 }

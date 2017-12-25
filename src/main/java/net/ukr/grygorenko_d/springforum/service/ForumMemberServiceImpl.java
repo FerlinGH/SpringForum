@@ -3,10 +3,9 @@ package net.ukr.grygorenko_d.springforum.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.ukr.grygorenko_d.springforum.dao.ForumMemberDAO;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
@@ -27,7 +26,7 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Map<Boolean, String> validateProfile(ForumMember forumMember, String firstName, String lastName,
 			String email) {
 		Map<Boolean, String> validationStatus = new HashMap<>();
