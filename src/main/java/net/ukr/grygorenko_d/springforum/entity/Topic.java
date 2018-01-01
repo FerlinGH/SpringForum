@@ -122,8 +122,8 @@ public class Topic {
 	}
 
 	public void addMessage(Message message) {
-		if(message.getTitle() == null) {
-			message.setTitle(this.getTitle());
+		if(message.getTopicTitle() == null) {
+			message.setTopicTitle(this.getTitle());
 		}
 		message.setTopic(this);
 		messages.add(message);

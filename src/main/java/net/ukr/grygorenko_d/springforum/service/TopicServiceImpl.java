@@ -1,8 +1,6 @@
 package net.ukr.grygorenko_d.springforum.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,21 +41,9 @@ public class TopicServiceImpl implements TopicService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Message> listMessagesByTopicId(int topicId) {
-
-		return topicDAO.getAllMessagesByTopicId(topicId);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Map<Integer, String> generateMessagesMap(List<Message> topicMessagesList) {
-
-		Map<Integer, String> topicMessagesMap = new HashMap<>();
-		for (Message tempMessage : topicMessagesList) {
-			topicMessagesMap.put(tempMessage.getId(), messageDAO.getMessageCreatorNickname(tempMessage));
-		}
-
-		return topicMessagesMap;
+	public List<Message> getMessagesWithAuthorsByTopicId(int topicId) {
+		Topic tempTopic = topicDAO.getTopicById(topicId);
+		return messageDAO.getMessagesWithAuthorsByTopic(tempTopic);
 	}
 
 	@Override
@@ -72,12 +58,12 @@ public class TopicServiceImpl implements TopicService {
 		Board board = boardDAO.getBoardAndTopicsByBoarId(boardId);
 		Topic tempTopic = new Topic();
 		Topic topic = prepareTopic(tempTopic, topicName);
-		
+
 		topic.addMessage(message);
 		message.setTopic(topic);
 		board.addTopic(topic);
 		topic.setBoard(board);
-		
+
 		boardDAO.saveBoard(board);
 	}
 
@@ -86,7 +72,7 @@ public class TopicServiceImpl implements TopicService {
 	public Topic prepareTopic(Topic tempTopic, String topicName) {
 		User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String login = tempUser.getUsername();
-		ForumMember messageCreator = forumMemberDAO.getMemberByNickname(login);
+		ForumMember messageCreator = forumMemberDAO.getMemberByUsername(login);
 		tempTopic.setAuthor(messageCreator);
 		tempTopic.setTitle(topicName);
 		return tempTopic;

@@ -35,10 +35,9 @@ public class TopicController {
 
 	@GetMapping("/show")
 	public String showTopic(@RequestParam("topicId") int topicId, Model model) {
-		List<Message> topicMessagesList = topicService.listMessagesByTopicId(topicId);
+		List<Message> topicMessagesList = topicService.getMessagesWithAuthorsByTopicId(topicId);
 		model.addAttribute("topic", topicService.getTopicById(topicId));
 		model.addAttribute("messageList", topicMessagesList);
-		model.addAttribute("messagesMap", topicService.generateMessagesMap(topicMessagesList));
 		return "list-messages";
 
 	}

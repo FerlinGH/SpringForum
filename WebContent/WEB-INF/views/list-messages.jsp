@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,24 +14,32 @@
 </head>
 <body>
 
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 
 	<h2>
 		<c:out value="${topic.title}" />
 	</h2>
+	
+	<div id="user-info" align="right">
+		<c:import url="snippets/user-info.jsp" />
+	</div>
 
-	<form action="${pageContext.request.contextPath}/message/new"
-		method="GET">
+	<form action="${contextPath}/message/new" method="GET">
 		<input type="hidden" name="topicId" value="${topic.id}" /> 
 		<input type="submit" value="Create new message" />
 	</form>
 
 	<c:forEach var="tempMessage" items="${messageList}">
-		<c:import url="snippets/single-message.jsp">
-			<c:param name="title" value="${tempMessage.title}" />
-			<c:param name="creator" value="${messagesMap[tempMessage.id]}" />
-			<c:param name="time" value="${tempMessage.creationTime}" />
-			<c:param name="body" value="${tempMessage.messageBody}" />
-		</c:import>
+		<h4>
+			<c:out value="${tempMessage.topicTitle}" />
+		</h4>
+		<c:out value="${tempMessage.getAuthor().getUsername()}" />
+		<c:out value="${tempMessage.creationTime}" />
+		<hr>
+		<c:out value="${tempMessage.messageBody}" />
+		<br>
+		<br>
 	</c:forEach>
 </body>
 </html>

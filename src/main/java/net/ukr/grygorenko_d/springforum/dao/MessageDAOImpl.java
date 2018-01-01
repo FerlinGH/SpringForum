@@ -1,5 +1,7 @@
 package net.ukr.grygorenko_d.springforum.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -7,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import net.ukr.grygorenko_d.springforum.entity.Message;
+import net.ukr.grygorenko_d.springforum.entity.Topic;
 
 @Repository
 public class MessageDAOImpl implements MessageDAO {
@@ -15,19 +18,18 @@ public class MessageDAOImpl implements MessageDAO {
 	private EntityManager entityManager;
 
 	@Override
-	public String getMessageCreatorNickname(Message message) {
-		int id = message.getId();
-		TypedQuery<Message> query = entityManager
-				.createQuery("SELECT m FROM Message m JOIN FETCH m.author WHERE m.id = :param", Message.class);
-		query.setParameter("param", id);
-		Message tempMessage = query.getSingleResult();
-		return tempMessage.getAuthor().getNickname();
+	public void saveMessage(Message message) {
+		entityManager.merge(message);
+
 	}
 
 	@Override
-	public void saveMessage(Message message) {
-		entityManager.merge(message);
-		
+	public List<Message> getMessagesWithAuthorsByTopic(Topic topic) {
+		TypedQuery<Message> query = entityManager
+				.createQuery("SELECT m FROM Message m JOIN FETCH m.author WHERE m.topic = :param", Message.class);
+		query.setParameter("param", topic);
+		List<Message> messageList = query.getResultList();
+		return messageList;
 	}
 
 }

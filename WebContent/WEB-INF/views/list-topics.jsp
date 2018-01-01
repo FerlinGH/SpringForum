@@ -20,6 +20,10 @@
 	<hr>
 	<br>
 	
+	<div id="user-info" align="right">
+		<c:import url="snippets/user-info.jsp" />
+	</div>
+	
 	<form action="${pageContext.request.contextPath}/topic/new"
 		method="GET">
 		<input type="hidden" name="boardId" value="${board.id}" /> 
@@ -43,7 +47,7 @@
 							</c:url> <a href="${topicLink}"> <c:out value="${tempTopic.title}" /></a>
 						</td>
 						<td><c:out value="${tempTopic.size}" /></td>
-						<td><c:out value="${topicsMap[tempTopic.id]}" /></td>
+						<td><c:out value="${tempTopic.getAuthor().getUsername()}" /></td>
 						<td><c:out value="${tempTopic.lastMessageTime}" /></td>
 					</tr>
 				</c:forEach>

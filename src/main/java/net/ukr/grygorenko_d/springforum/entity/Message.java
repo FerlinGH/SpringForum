@@ -20,7 +20,7 @@ public class Message {
 	private int id;
 
 	@Column(name = "title")
-	private String title;
+	private String topicTitle;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -56,12 +56,12 @@ public class Message {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getTopicTitle() {
+		return topicTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTopicTitle(String topicTitle) {
+		this.topicTitle = topicTitle;
 	}
 
 	public ForumMember getAuthor() {

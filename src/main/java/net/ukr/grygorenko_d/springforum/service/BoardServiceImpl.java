@@ -1,8 +1,6 @@
 package net.ukr.grygorenko_d.springforum.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,25 +39,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Topic> listTopics(int boardId) {
-		return boardDAO.getAllTopics(boardId);
+	public List<Topic> listTopicsWithAuthorsByBoardId(int boardId) {
+		Board board = boardDAO.getBoardById(boardId);
+		return topicDAO.getTopicsWithAuthorsByBoard(board);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Board getBoardById(int boardId) {
 		return boardDAO.getBoardById(boardId);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Map<Integer, String> generateTopicsMap(List<Topic> topicsList) {
-		Map<Integer, String> topicsMap = new HashMap<>();
-		for (Topic tempTopic : topicsList) {
-			topicsMap.put(tempTopic.getId(), topicDAO.getCreatorsNicknameByTopic(tempTopic));
-		}
-
-		return topicsMap;
 	}
 
 }

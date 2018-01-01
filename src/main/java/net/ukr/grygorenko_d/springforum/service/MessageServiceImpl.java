@@ -31,7 +31,7 @@ public class MessageServiceImpl implements MessageService {
 	public Message prepareMessage(Message tempMessage) {
 		User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String login = tempUser.getUsername();
-		ForumMember messageCreator = forumMemberDAO.getMemberByNickname(login);
+		ForumMember messageCreator = forumMemberDAO.getMemberByUsername(login);
 		tempMessage.setAuthor(messageCreator);
 		tempMessage.setCreationTime(LocalDateTimeAdapter.describeCurrentTime());
 		return tempMessage;

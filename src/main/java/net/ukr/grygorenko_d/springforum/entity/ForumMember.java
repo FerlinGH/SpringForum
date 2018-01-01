@@ -25,8 +25,11 @@ public class ForumMember {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "nickname")
-	private String nickname;
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "password")
+	private String password;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -43,7 +46,9 @@ public class ForumMember {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-	@JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+		@JoinTable(name = "member_role", 
+			joinColumns = @JoinColumn(name = "member_id"), 
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 
 	public ForumMember() {
@@ -51,9 +56,10 @@ public class ForumMember {
 		roles = new ArrayList<Role>();
 	}
 
-	public ForumMember(String nickname, ForumMemberDetails memberDetails) {
+	public ForumMember(String username, String password, ForumMemberDetails memberDetails) {
 		super();
-		this.nickname = nickname;
+		this.username = username;
+		this.password = password;
 		this.memberDetails = memberDetails;
 		roles = new ArrayList<Role>();
 	}
@@ -66,12 +72,20 @@ public class ForumMember {
 		this.id = id;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public ForumMemberDetails getMemberDetails() {
@@ -96,6 +110,6 @@ public class ForumMember {
 
 	@Override
 	public String toString() {
-		return "Forum Member [id=" + id + ", nickname=" + nickname + "]";
+		return "Forum Member [id=" + id + ", username=" + username + "]";
 	}
 }

@@ -27,15 +27,21 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Map<Boolean, String> validateProfile(ForumMember forumMember, String firstName, String lastName,
+	public Map<Boolean, String> validateProfile(ForumMember forumMember, String passwordCandidate1,
+			String passwordCandidate2, String firstName, String lastName,
 			String email) {
 		Map<Boolean, String> validationStatus = new HashMap<>();
-		String nickname = forumMember.getNickname();
-		ForumMember candidate = forumMemberDAO.getMemberByNickname(nickname);
+		String username = forumMember.getUsername();
+		ForumMember candidate = forumMemberDAO.getMemberByUsername(username);
 		if (candidate != null) {
 			validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
 			return validationStatus;
 		}
+		if(!passwordCandidate1.equals(passwordCandidate2)) {
+			validationStatus.put(false, "Validation error: Your passwords do no match, please re-enter!");
+			return validationStatus;
+		}
+		
 		if (firstName.equals("")) {
 			validationStatus.put(false, "Validation error: Fist name is required!");
 			return validationStatus;
@@ -61,6 +67,18 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	public void saveProfile(ForumMember forumMember) {
 		forumMemberDAO.saveMember(forumMember);
 
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ForumMember getUserByUsername(String username) {
+		return forumMemberDAO.getMemberByUsername(username);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ForumMember getUserAndRolesByUsername(String username) {
+		return forumMemberDAO.getUserAndRolesByUsername(username);
 	}
 
 }
