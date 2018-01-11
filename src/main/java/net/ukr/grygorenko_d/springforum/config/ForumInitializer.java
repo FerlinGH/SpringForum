@@ -1,5 +1,9 @@
 package net.ukr.grygorenko_d.springforum.config;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -15,6 +19,7 @@ import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
 import net.ukr.grygorenko_d.springforum.helpers.LocalDateTimeAdapter;
 import net.ukr.grygorenko_d.springforum.service.BoardService;
+import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
 import net.ukr.grygorenko_d.springforum.service.RoleService;
 
 @Component
@@ -22,17 +27,23 @@ public class ForumInitializer {
 
 	private BoardService boardService;
 	private RoleService roleService;
+	private ForumMemberService forumMemberService;
 	private static Logger LOGGER = LoggerFactory.getLogger(ForumInitializer.class);
 
+	
+
 	@Autowired
-	public ForumInitializer(BoardService boardService, RoleService roleService) {
+	public ForumInitializer(BoardService boardService, RoleService roleService, ForumMemberService forumMemberService) {
 		super();
 		this.boardService = boardService;
 		this.roleService = roleService;
+		this.forumMemberService = forumMemberService;
 	}
 
 	@PostConstruct
 	public void initDatabase() {
+		LocalDateTime currentTime;
+		
 		roleService.createRole(new Role(RoleTypes.ADMIN));
 		roleService.createRole(new Role(RoleTypes.MODERATOR));
 		roleService.createRole(new Role(RoleTypes.MEMBER));
@@ -53,32 +64,48 @@ public class ForumInitializer {
 		Role moderatorRole = roleService.getRoleByType(RoleTypes.MODERATOR);
 
 		user1.addRole(adminRole);
-		user1.addRole(moderatorRole);
 		user2.addRole(moderatorRole);
+		
+		forumMemberService.saveProfile(user1);
+		forumMemberService.saveProfile(user2);
 
-		Topic topic1 = new Topic("General announcement", user1);
+		ForumMember adminRef = forumMemberService.getUserRefferenceById(1);
+		ForumMember moderatorRef = forumMemberService.getUserRefferenceById(2);
+		
+		Topic topic1 = new Topic("General announcement", adminRef);
 		LOGGER.info("Topic created: " + topic1);
-		Topic topic2 = new Topic("To whom it may concern", user2);
+		Topic topic2 = new Topic("To whom it may concern", moderatorRef);
 		LOGGER.info("Topic created: " + topic2);
-		Topic topic3 = new Topic("First topic in Alternative board", user1);
+		Topic topic3 = new Topic("First topic in Alternative board", adminRef);
 		LOGGER.info("Topic created: " + topic3);
 
-		Message message1 = new Message(user1, "Testing new topic");
-		message1.setCreationTime(LocalDateTimeAdapter.describeCurrentTime());
+		
+	
+		ZoneOffset zoneOffset = ZoneId.of("UTC+2").getRules().getOffset(LocalDateTime.now());
+		Message message1 = new Message(adminRef, "Testing new topic");
+		currentTime = LocalDateTime.now();
+		message1.setCreationTimeSec(currentTime.toEpochSecond(zoneOffset));
+		message1.setCreationTime(LocalDateTimeAdapter.describeTime(currentTime));
 		LOGGER.info("New message: " + message1);
-		Message message2 = new Message(user2, "It's showtime!");
-		message2.setCreationTime(LocalDateTimeAdapter.describeCurrentTime());
+		Message message2 = new Message(adminRef, "Second message");
+		currentTime = LocalDateTime.now();
+		message2.setCreationTimeSec(currentTime.toEpochSecond(zoneOffset));
+		message2.setCreationTime(LocalDateTimeAdapter.describeTime(currentTime));
 		LOGGER.info("New message: " + message2);
-		Message message3 = new Message(user1, "Second message");
-		message3.setCreationTime(LocalDateTimeAdapter.describeCurrentTime());
+		Message message3 = new Message(moderatorRef, "It's showtime!");
+		currentTime = LocalDateTime.now();
+		message3.setCreationTimeSec(currentTime.toEpochSecond(zoneOffset));
+		message3.setCreationTime(LocalDateTimeAdapter.describeTime(currentTime));
 		LOGGER.info("New message: " + message3);
-		Message message4 = new Message(user2, "Message example");
-		message4.setCreationTime(LocalDateTimeAdapter.describeCurrentTime());
+		Message message4 = new Message(moderatorRef, "Message example");
+		currentTime = LocalDateTime.now();
+		message4.setCreationTimeSec(currentTime.toEpochSecond(zoneOffset));
+		message4.setCreationTime(LocalDateTimeAdapter.describeTime(currentTime));
 		LOGGER.info("New message: " + message4);
 
 		topic1.addMessage(message1);
-		topic2.addMessage(message2);
-		topic1.addMessage(message3);
+		topic1.addMessage(message2);
+		topic2.addMessage(message3);
 		topic3.addMessage(message4);
 
 		board1.addTopic(topic1);

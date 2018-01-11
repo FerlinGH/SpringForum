@@ -12,5 +12,11 @@ public class LocalDateTimeAdapter {
 
 		return time;
 	}
+	
+	public static String describeTime(LocalDateTime currentTime) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		String time = currentTime.format(formatter).toString();
+		return time;
+	}
 
 }

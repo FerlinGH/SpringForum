@@ -1,7 +1,7 @@
 package net.ukr.grygorenko_d.springforum.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,14 +29,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		ForumMember member = forumMemberService.getUserAndRolesByUsername(username);
-		 if (member == null)
-	            throw new UsernameNotFoundException(username + " not found");
-		 
-		 List<GrantedAuthority> userRoles = new ArrayList<>();
-		 for(Role role : member.getRoles()) {
-			 userRoles.add(new SimpleGrantedAuthority(role.toString()));
-		 }
-		 return new User(member.getUsername(), member.getPassword(), userRoles);
+		if (member == null)
+			throw new UsernameNotFoundException(username + " not found");
+
+		Set<GrantedAuthority> userRoles = new HashSet<>();
+		for (Role role : member.getRoles()) {
+			userRoles.add(new SimpleGrantedAuthority(role.toString()));
+		}
+		return new User(member.getUsername(), member.getPassword(), userRoles);
 	}
 
 }

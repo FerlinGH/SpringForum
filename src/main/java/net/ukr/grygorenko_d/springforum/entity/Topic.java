@@ -45,6 +45,9 @@ public class Topic {
 
 	@Column(name = "last_message")
 	private String lastMessageTime;
+	
+	@Column(name = "last_message_sec")
+	private long lastMessageTimeSec;
 
 	public Topic() {
 		super();
@@ -120,15 +123,28 @@ public class Topic {
 	public void setLastMessageTime(String lastMessageTime) {
 		this.lastMessageTime = lastMessageTime;
 	}
+	
+	
+
+	public long getLastMessageTimeSec() {
+		return lastMessageTimeSec;
+	}
+
+	public void setLastMessageTimeMilis(long lastMessageTimeSec) {
+		this.lastMessageTimeSec = lastMessageTimeSec;
+	}
 
 	public void addMessage(Message message) {
-		if(message.getTopicTitle() == null) {
+		if ((message.getTopicTitle() == null)) {
+			message.setTopicTitle(this.getTitle());
+		} else if (!message.getTopicTitle().equals(this.getTitle())) {
 			message.setTopicTitle(this.getTitle());
 		}
 		message.setTopic(this);
 		messages.add(message);
 		size++;
 		lastMessageTime = message.getCreationTime();
+		lastMessageTimeSec = message.getCreationTimeSec();
 	}
 
 	@Override

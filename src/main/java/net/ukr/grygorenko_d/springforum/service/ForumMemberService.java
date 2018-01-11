@@ -15,4 +15,6 @@ public interface ForumMemberService {
 
 	public ForumMember getUserAndRolesByUsername(String username);
 
+	public ForumMember getUserRefferenceById(int id);
+
 }

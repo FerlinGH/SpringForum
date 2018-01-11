@@ -11,4 +11,8 @@ public interface MessageDAO {
 	
 	public void saveMessage(Message message);
 
+	public Message getMessageById(int messageId);
+
+	public Message getMessageAndTopicByMessageId(int messageId);
+
 }

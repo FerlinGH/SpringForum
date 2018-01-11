@@ -1,6 +1,8 @@
 package net.ukr.grygorenko_d.springforum.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -60,9 +62,9 @@ public class TopicServiceImpl implements TopicService {
 		Topic topic = prepareTopic(tempTopic, topicName);
 
 		topic.addMessage(message);
-		message.setTopic(topic);
+//		message.setTopic(topic);
 		board.addTopic(topic);
-		topic.setBoard(board);
+//		topic.setBoard(board);
 
 		boardDAO.saveBoard(board);
 	}
@@ -76,6 +78,21 @@ public class TopicServiceImpl implements TopicService {
 		tempTopic.setAuthor(messageCreator);
 		tempTopic.setTitle(topicName);
 		return tempTopic;
+	}
+
+	@Override
+	public Map<Boolean, String> validatetopic(String topicName, Message message) {
+		Map<Boolean, String> validationStatus = new HashMap<Boolean, String>();
+		if (topicName.equals("")) {
+			validationStatus.put(false, "Topic name cannot be emtpy!");
+			return validationStatus;
+		} else if (message.getMessageBody().equals("")) {
+			validationStatus.put(false, "Empty message not allowed!");
+			return validationStatus;
+		} else {
+			validationStatus.put(true, "Successfull validation.");
+			return validationStatus;
+		}
 	}
 
 }

@@ -10,4 +10,10 @@ public interface ForumMemberDAO {
 
 	public ForumMember getUserAndRolesByUsername(String username);
 
+	public boolean existsByUsername(String username);
+
+	public ForumMember getUserRefferenceById(int id);
+
+	public ForumMember getUserRefferenceByMessageId(int messageId);
+
 }

@@ -31,9 +31,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public Board getBoardById(int boardId) {
-		TypedQuery<Board> query = entityManager.createQuery("SELECT b from Board b WHERE ( id = :param )", Board.class);
-		query.setParameter("param", boardId);
-		Board board = query.getSingleResult();
+		Board board = entityManager.find(Board.class, boardId);
 		return board;
 	}
 

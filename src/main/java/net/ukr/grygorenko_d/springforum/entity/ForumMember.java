@@ -1,7 +1,8 @@
 package net.ukr.grygorenko_d.springforum.entity;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,14 +47,12 @@ public class ForumMember {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-		@JoinTable(name = "member_role", 
-			joinColumns = @JoinColumn(name = "member_id"), 
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<Role> roles;
+	@JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
 	public ForumMember() {
 		super();
-		roles = new ArrayList<Role>();
+		roles = new HashSet<Role>();
 	}
 
 	public ForumMember(String username, String password, ForumMemberDetails memberDetails) {
@@ -61,7 +60,7 @@ public class ForumMember {
 		this.username = username;
 		this.password = password;
 		this.memberDetails = memberDetails;
-		roles = new ArrayList<Role>();
+		roles = new HashSet<Role>();
 	}
 
 	public int getId() {
@@ -96,11 +95,11 @@ public class ForumMember {
 		this.memberDetails = memberDetails;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

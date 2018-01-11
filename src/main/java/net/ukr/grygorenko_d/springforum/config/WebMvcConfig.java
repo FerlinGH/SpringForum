@@ -2,8 +2,8 @@ package net.ukr.grygorenko_d.springforum.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -75,9 +75,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/css/");
+		registry.addResourceHandler("/resources/css/**").addResourceLocations("/resources/css/");
 	}
 }

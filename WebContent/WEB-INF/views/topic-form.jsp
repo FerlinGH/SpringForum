@@ -8,6 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New topic form</title>
+
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/CssStyle.css ">
+
 </head>
 <body>
 	<form:form action="validateTopic" modelAttribute="message"

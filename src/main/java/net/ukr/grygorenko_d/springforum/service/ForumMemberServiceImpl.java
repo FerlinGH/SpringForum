@@ -32,11 +32,15 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 			String email) {
 		Map<Boolean, String> validationStatus = new HashMap<>();
 		String username = forumMember.getUsername();
-		ForumMember candidate = forumMemberDAO.getMemberByUsername(username);
-		if (candidate != null) {
-			validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
-			return validationStatus;
-		}
+//		ForumMember candidate = forumMemberDAO.getMemberByUsername(username);
+//		if (candidate != null) {
+//			validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
+//			return validationStatus;
+//		}
+		 if(forumMemberDAO.existsByUsername(username)) {
+			 validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
+				return validationStatus;
+		 }
 		if(!passwordCandidate1.equals(passwordCandidate2)) {
 			validationStatus.put(false, "Validation error: Your passwords do no match, please re-enter!");
 			return validationStatus;
@@ -79,6 +83,12 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	@Transactional(readOnly = true)
 	public ForumMember getUserAndRolesByUsername(String username) {
 		return forumMemberDAO.getUserAndRolesByUsername(username);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ForumMember getUserRefferenceById(int id) {
+		return forumMemberDAO.getUserRefferenceById(id);
 	}
 
 }

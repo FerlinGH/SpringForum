@@ -13,4 +13,6 @@ public interface TopicDAO {
 
 	public List<Topic> getTopicsWithAuthorsByBoard(Board board);
 
+	public Topic getTopicRefferenceByTopicId(int topicId);
+
 }

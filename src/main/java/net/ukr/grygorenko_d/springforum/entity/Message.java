@@ -19,7 +19,7 @@ public class Message {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "title")
+	@Column(name = "topic_title")
 	private String topicTitle;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
@@ -35,8 +35,14 @@ public class Message {
 	@Column(name = "created")
 	private String creationTime;
 
+	@Column(name = "created_milis")
+	private long creationTimeSec;
+
 	@Column(name = "message_body")
 	private String messageBody;
+
+	@Column(name = "edit_info")
+	private String editInfo;
 
 	public Message() {
 		super();
@@ -80,6 +86,14 @@ public class Message {
 		this.creationTime = creationTime;
 	}
 
+	public long getCreationTimeSec() {
+		return creationTimeSec;
+	}
+
+	public void setCreationTimeSec(long creationTimeSec) {
+		this.creationTimeSec = creationTimeSec;
+	}
+
 	public String getMessageBody() {
 		return messageBody;
 	}
@@ -94,6 +108,14 @@ public class Message {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public String getEditInfo() {
+		return editInfo;
+	}
+
+	public void setEditInfo(String editInfo) {
+		this.editInfo = editInfo;
 	}
 
 	@Override

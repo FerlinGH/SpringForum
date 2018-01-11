@@ -32,4 +32,19 @@ public class MessageDAOImpl implements MessageDAO {
 		return messageList;
 	}
 
+	@Override
+	public Message getMessageById(int messageId) {
+		Message message = entityManager.find(Message.class, messageId);
+		return message;
+	}
+
+	@Override
+	public Message getMessageAndTopicByMessageId(int messageId) {
+		TypedQuery<Message> query = entityManager
+				.createQuery("SELECT m FROM Message m JOIN FETCH m.topic WHERE m.id = :param", Message.class);
+		query.setParameter("param", messageId);
+		Message message = query.getSingleResult();
+		return message;
+	}
+
 }
