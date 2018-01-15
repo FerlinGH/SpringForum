@@ -85,4 +85,11 @@ public class ForumMemberDAOImpl implements ForumMemberDAO {
 		return forumMemberRef;
 	}
 
+	@Override
+	public ForumMember getMemberRefByUsername(String login) {
+		ForumMember member = getMemberByUsername(login);
+		int id = member.getId();
+		return entityManager.getReference(ForumMember.class, id);
+	}
+
 }

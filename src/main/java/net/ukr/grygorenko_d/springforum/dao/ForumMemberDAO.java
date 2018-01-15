@@ -16,4 +16,6 @@ public interface ForumMemberDAO {
 
 	public ForumMember getUserRefferenceByMessageId(int messageId);
 
+	public ForumMember getMemberRefByUsername(String login);
+
 }

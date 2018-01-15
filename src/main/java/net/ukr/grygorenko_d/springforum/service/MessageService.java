@@ -1,12 +1,13 @@
 package net.ukr.grygorenko_d.springforum.service;
 
+import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 
 public interface MessageService {
 
 	public void saveMessage(Message message, int topicId, String action);
 
-	Message prepareMessage(Message tempMessage);
+	public Message prepareMessage(Message tempMessage, ForumMember userRef);
 
 	public Message getMessageById(int messageId);
 

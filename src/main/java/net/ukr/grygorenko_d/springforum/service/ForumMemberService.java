@@ -17,4 +17,6 @@ public interface ForumMemberService {
 
 	public ForumMember getUserRefferenceById(int id);
 
+	public ForumMember getCurrentUserRef();
+
 }

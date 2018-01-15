@@ -7,6 +7,6 @@ public interface RoleDAO {
 
 	public void createRole(Role role);
 
-	public Role getRoleByType(RoleTypes roleType);
+	public Role getRoleRefByType(RoleTypes roleType);
 
 }

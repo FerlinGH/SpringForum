@@ -30,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Role getRoleByType(RoleTypes roleType) {
-		return roleDAO.getRoleByType(roleType);
+	public Role getRoleRefByType(RoleTypes roleType) {
+		return roleDAO.getRoleRefByType(roleType);
 	}
 
 }

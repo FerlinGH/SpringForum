@@ -34,12 +34,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Message prepareMessage(Message tempMessage) {
-		User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String login = tempUser.getUsername();
-		ForumMember messageCreator = forumMemberDAO.getMemberByUsername(login);
-		tempMessage.setAuthor(messageCreator);
+	public Message prepareMessage(Message tempMessage, ForumMember userRef) {
+		tempMessage.setAuthor(userRef);
 		LocalDateTime currentTime = LocalDateTime.now();
 		ZoneOffset zoneOffset = ZoneId.of("UTC+2").getRules().getOffset(currentTime);
 		tempMessage.setCreationTimeSec(currentTime.toEpochSecond(zoneOffset));
@@ -52,8 +48,12 @@ public class MessageServiceImpl implements MessageService {
 	public void saveMessage(Message tempMessage, int topicId, String action) {
 		if (action.equals("new")) {
 			System.out.println("Creating new message...");
+			User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String login = tempUser.getUsername();
+			ForumMember userRef = forumMemberDAO.getMemberRefByUsername(login);
+			Message message = prepareMessage(tempMessage, userRef);
+			
 			Topic topic = topicDAO.getTopicById(topicId);
-			Message message = prepareMessage(tempMessage);
 			topic.addMessage(message);
 
 			topicDAO.saveTopic(topic);

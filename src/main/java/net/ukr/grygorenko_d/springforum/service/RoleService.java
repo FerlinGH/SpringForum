@@ -7,6 +7,6 @@ public interface RoleService {
 
 	public void createRole(Role role);
 
-	public Role getRoleByType(RoleTypes roleType);
+	public Role getRoleRefByType(RoleTypes roleType);
 
 }

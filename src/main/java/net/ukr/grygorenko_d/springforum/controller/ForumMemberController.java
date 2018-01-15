@@ -3,7 +3,8 @@ package net.ukr.grygorenko_d.springforum.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,10 +58,10 @@ public class ForumMemberController {
 		Map<Boolean, String> validationStatus = forumMemberService.validateProfile(forumMember, passwordCandidate1,
 				passwordCandidate2, firstName, lastName, email);
 		if (validationStatus.containsKey(true)) {
-			ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
-			String hashedPassword = encoder.encodePassword(passwordCandidate1, null);
+			PasswordEncoder encoder = new BCryptPasswordEncoder();
+			String hashedPassword = encoder.encode(passwordCandidate1);
 			forumMember.setPassword(hashedPassword);
-			Role memberRole = roleService.getRoleByType(RoleTypes.MEMBER);
+			Role memberRole = roleService.getRoleRefByType(RoleTypes.MEMBER);
 			forumMember.addRole(memberRole);
 			ForumMemberDetails newDetails = new ForumMemberDetails(firstName, lastName, email, forumMember);
 			forumMember.setMemberDetails(newDetails);

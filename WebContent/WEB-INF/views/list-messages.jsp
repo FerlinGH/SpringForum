@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -16,7 +17,11 @@
 <body>
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+	<c:if test="${pageContext.request.userPrincipal.name ne anonymousUser}">
+		<security:authentication property="principal.username" var="username"/>
+		<security:authentication property="principal.authorities" var="roles"/>
+	
+	</c:if>
 
 	<h2>
 		<c:out value="${topic.title}" />
@@ -30,6 +35,10 @@
 		<input type="hidden" name="topicId" value="${topic.id}" /> <input
 			type="submit" value="Create new message" />
 	</form>
+
+	<c:if test="${pageContext.request.userPrincipal.name ne anonymousUser}">
+		<c:out value="Hello ${username}, your roles are: ${roles}" />
+	</c:if>
 
 	<c:forEach var="tempMessage" items="${messageList}">
 		<h4>

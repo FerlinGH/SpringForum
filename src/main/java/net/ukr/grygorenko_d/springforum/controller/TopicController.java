@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 import net.ukr.grygorenko_d.springforum.helpers.TextFormatter;
 import net.ukr.grygorenko_d.springforum.service.BoardService;
+import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
 import net.ukr.grygorenko_d.springforum.service.MessageService;
 import net.ukr.grygorenko_d.springforum.service.TopicService;
 
@@ -27,13 +29,16 @@ public class TopicController {
 	private TopicService topicService;
 	private BoardService boardService;
 	private MessageService messageService;
+	private ForumMemberService forumMemberService;
 
 	@Autowired
-	public TopicController(TopicService topicService, BoardService boardService, MessageService messageService) {
+	public TopicController(TopicService topicService, BoardService boardService, MessageService messageService,
+			ForumMemberService forumMemberService) {
 		super();
 		this.topicService = topicService;
 		this.boardService = boardService;
 		this.messageService = messageService;
+		this.forumMemberService = forumMemberService;
 	}
 
 	@GetMapping("/show")
@@ -73,8 +78,9 @@ public class TopicController {
 			model.addAttribute("validationStutus", validationStatus.get(false));
 			return "topic-form";
 		} else {
-			Message message = messageService.prepareMessage(tempMessage);
-			topicService.saveNewTopic(id, topicName, message);
+			ForumMember creatorRef = forumMemberService.getCurrentUserRef();
+			Message message = messageService.prepareMessage(tempMessage, creatorRef);
+			topicService.saveNewTopic(id, topicName, message, creatorRef);
 			return "redirect:/";
 		}
 	}

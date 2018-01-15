@@ -45,6 +45,18 @@ public class Role {
 		members = new ArrayList<ForumMember>();
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setMembers(List<ForumMember> members) {
+		this.members = members;
+	}
+
 	public RoleTypes getRoleType() {
 		return roleType;
 	}

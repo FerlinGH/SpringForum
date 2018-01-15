@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,11 +34,7 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 			String email) {
 		Map<Boolean, String> validationStatus = new HashMap<>();
 		String username = forumMember.getUsername();
-//		ForumMember candidate = forumMemberDAO.getMemberByUsername(username);
-//		if (candidate != null) {
-//			validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
-//			return validationStatus;
-//		}
+		
 		 if(forumMemberDAO.existsByUsername(username)) {
 			 validationStatus.put(false, "Validation error: that nickname alredy exist, pick up another one!");
 				return validationStatus;
@@ -89,6 +87,15 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	@Transactional(readOnly = true)
 	public ForumMember getUserRefferenceById(int id) {
 		return forumMemberDAO.getUserRefferenceById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ForumMember getCurrentUserRef() {
+		User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String login = tempUser.getUsername();
+		ForumMember userRef = forumMemberDAO.getMemberRefByUsername(login);
+		return userRef;
 	}
 
 }

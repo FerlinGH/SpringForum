@@ -53,18 +53,22 @@ public class ForumInitializer {
 		Board board2 = new Board("Alternative board");
 		LOGGER.info("Board created: " + board2);
 
-		ForumMember user1 = new ForumMember("Admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+		ForumMember user1 = new ForumMember("Admin", "$2a$10$ggzn.kG4nDHZGcMXVW0JweMMdfT41blJwLdP5vnYVw1EbYazJjgl6",
 				null);
 		LOGGER.info("User created: " + user1);
 		ForumMember user2 = new ForumMember("Moderator",
-				"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", null);
+				"$2a$10$ggzn.kG4nDHZGcMXVW0JweMMdfT41blJwLdP5vnYVw1EbYazJjgl6", null);
 		LOGGER.info("User created: " + user2);
 
-		Role adminRole = roleService.getRoleByType(RoleTypes.ADMIN);
-		Role moderatorRole = roleService.getRoleByType(RoleTypes.MODERATOR);
+		
+		Role adminRoleRef = roleService.getRoleRefByType(RoleTypes.ADMIN);
+		Role moderatorRoleRef = roleService.getRoleRefByType(RoleTypes.MODERATOR);
+		Role memberRoleRef = roleService.getRoleRefByType(RoleTypes.MEMBER);
 
-		user1.addRole(adminRole);
-		user2.addRole(moderatorRole);
+		user1.addRole(memberRoleRef);
+		user1.addRole(adminRoleRef);
+		user2.addRole(memberRoleRef);
+		user2.addRole(moderatorRoleRef);
 		
 		forumMemberService.saveProfile(user1);
 		forumMemberService.saveProfile(user2);
