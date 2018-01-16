@@ -79,7 +79,7 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return roleType.toString();
+		return "ROLE_" + roleType.toString();
 	}
 
 }

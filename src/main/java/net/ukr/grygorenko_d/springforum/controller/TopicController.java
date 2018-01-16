@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.ukr.grygorenko_d.springforum.entity.Board;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
+import net.ukr.grygorenko_d.springforum.entity.Topic;
 import net.ukr.grygorenko_d.springforum.helpers.TextFormatter;
 import net.ukr.grygorenko_d.springforum.service.BoardService;
 import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
@@ -43,10 +44,7 @@ public class TopicController {
 
 	@GetMapping("/show")
 	public String showTopic(@RequestParam("topicId") int topicId, Model model) {
-		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-			User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			model.addAttribute("roles", user.getAuthorities());
-		} else {
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			model.addAttribute("anonymousUser", true);
 		}
 		List<Message> topicMessagesList = topicService.getMessagesWithAuthorsByTopicId(topicId);
@@ -65,14 +63,13 @@ public class TopicController {
 	}
 
 	@PostMapping("/validateTopic")
-	public String validateTopic(@RequestParam("topicName") String topicName, @RequestParam("boardId") String boardId,
+	public String validateTopic(@RequestParam("topicName") String topicName, @RequestParam("boardId") int boardId,
 			@ModelAttribute("message") Message tempMessage, Model model) {
 		topicName = TextFormatter.formatString(topicName);
 		tempMessage.setMessageBody(TextFormatter.formatString(tempMessage.getMessageBody()));
-		int id = Integer.parseInt(boardId);
 		Map<Boolean, String> validationStatus = topicService.validatetopic(topicName, tempMessage);
 		if (validationStatus.containsKey(false)) {
-			model.addAttribute("board", boardService.getBoardById(id));
+			model.addAttribute("board", boardService.getBoardById(boardId));
 			model.addAttribute("topicName", topicName);
 			model.addAttribute("message", tempMessage);
 			model.addAttribute("validationStutus", validationStatus.get(false));
@@ -80,8 +77,34 @@ public class TopicController {
 		} else {
 			ForumMember creatorRef = forumMemberService.getCurrentUserRef();
 			Message message = messageService.prepareMessage(tempMessage, creatorRef);
-			topicService.saveNewTopic(id, topicName, message, creatorRef);
+			topicService.saveNewTopic(boardId, topicName, message, creatorRef);
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping("/delete")
+	public String deleteTopic(@RequestParam("topicId") int topicId, @RequestParam("boardId") int boardId) {
+		topicService.deleteTopicById(topicId);
+		Board board = boardService.getBoardById(boardId);
+		board.setSize(board.getSize()-1);
+		boardService.saveBoard(board);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/rename")
+	public String renameTopic(@RequestParam("topicId") int topicId, Model model) {
+		Topic topic =  topicService.getTopicById(topicId);
+		model.addAttribute("topicId", topicId);
+		model.addAttribute("topicName", topic.getTitle());
+		return "rename-topic";
+		
+	}
+	
+	@PostMapping("/setNewTopicName")
+	public String setNewTopicName(@RequestParam("topicId") int topicId, @RequestParam("topicName") String topicName) {
+		Topic topic = topicService.getFullTopicById(topicId);
+		topic.setTitle(topicName);
+		topicService.updateTopic(topic);
+		return "redirect:/";
 	}
 }

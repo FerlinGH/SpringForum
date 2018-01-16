@@ -19,4 +19,10 @@ public interface TopicService {
 
 	public Map<Boolean, String> validatetopic(String topicName, Message message);
 
+	public void deleteTopicById(int topicId);
+
+	public void updateTopic(Topic topic);
+
+	public Topic getFullTopicById(int topicId);
+
 }

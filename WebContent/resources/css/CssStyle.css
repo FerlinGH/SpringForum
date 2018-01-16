@@ -58,12 +58,18 @@ tr:nth-child(odd) {
 }
 
 #topic-table {
-	tr: nth-child(even){ 
+	tr:nth-child(even){ 
+	background: ##c0c0c0
+	}
+
+	tr:nth-child(odd) {
 	background: #FFFFFF
+	}
+
 }
 
 tr:nth-child(odd) {
-	background: #c0c0c0
+	background: #FFFFFF
 }
 
 }
@@ -74,7 +80,7 @@ tr:nth-child(odd) {
 
 #header {
 	width: 100%;
-	background: #c0c0c0;
+	background: #cccccc;
 	margin-top: 0px;
 	padding: 12px;
 }
@@ -107,5 +113,5 @@ tr:nth-child(odd) {
 	width: 120px;
 	padding: 5px 10px;
 	margin-bottom: 15px;
-	background: #cccccc;
+	background: #e1cec6;
 }

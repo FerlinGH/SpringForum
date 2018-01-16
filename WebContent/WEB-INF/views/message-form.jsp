@@ -23,6 +23,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="topicTitle" />
 	<form:hidden path="creationTime" />
+	<form:hidden path="creationTimeSec" />
 		<table>
 			<tr>
 			<form:textarea path="messageBody" placeholder = "Enter your message here" />

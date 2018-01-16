@@ -91,4 +91,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.getMessageAndTopicByMessageId(messageId);
 	}
 
+	@Override
+	@Transactional
+	public void deleteMessage(int topicId, int messageId) {
+		Topic topic = topicDAO.getTopicById(topicId);
+		messageDAO.removeMessageById(messageId);
+		topic.setSize((topic.getSize())-1);
+	}
+
 }

@@ -15,6 +15,8 @@ public interface MessageService {
 
 	public Message getMessageAndTopicByMessageId(int messageId);
 
+	public void deleteMessage(int topicId, int messageId);
+
 	
 
 }

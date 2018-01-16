@@ -19,6 +19,7 @@
 		method="POST">
 
 		<form:hidden path="id" />
+		
 		<input type="hidden" name="boardId" value="${board.id}" />
 		<table>
 			<tr>

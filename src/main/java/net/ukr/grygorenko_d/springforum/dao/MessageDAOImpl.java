@@ -47,4 +47,10 @@ public class MessageDAOImpl implements MessageDAO {
 		return message;
 	}
 
+	@Override
+	public void removeMessageById(int messageId) {
+		Message message = entityManager.find(Message.class, messageId);
+		entityManager.remove(message);	
+	}
+
 }

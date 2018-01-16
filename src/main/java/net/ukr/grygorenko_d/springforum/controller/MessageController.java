@@ -62,4 +62,11 @@ public class MessageController {
 
 	}
 
+	@GetMapping("/delete")
+	public String deleteMessage(@RequestParam("topicId") int topicId, @RequestParam("messageId") int messageId) {
+		messageService.deleteMessage(topicId, messageId);
+		return "redirect:/";
+
+	}
+
 }

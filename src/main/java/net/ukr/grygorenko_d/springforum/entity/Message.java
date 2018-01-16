@@ -35,10 +35,10 @@ public class Message {
 	@Column(name = "created")
 	private String creationTime;
 
-	@Column(name = "created_milis")
+	@Column(name = "created_sec")
 	private long creationTimeSec;
 
-	@Column(name = "message_body")
+	@Column(name = "message_body", length = 15000)
 	private String messageBody;
 
 	@Column(name = "edit_info")

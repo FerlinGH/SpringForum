@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -16,13 +17,6 @@
 </head>
 <body>
 
-	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-	<c:if test="${pageContext.request.userPrincipal.name ne anonymousUser}">
-		<security:authentication property="principal.username" var="username"/>
-		<security:authentication property="principal.authorities" var="roles"/>
-	
-	</c:if>
-
 	<h2>
 		<c:out value="${topic.title}" />
 	</h2>
@@ -31,14 +25,14 @@
 		<c:import url="snippets/user-info.jsp" />
 	</div>
 
-	<form action="${contextPath}/message/new" method="GET">
-		<input type="hidden" name="topicId" value="${topic.id}" /> <input
-			type="submit" value="Create new message" />
-	</form>
-
-	<c:if test="${pageContext.request.userPrincipal.name ne anonymousUser}">
-		<c:out value="Hello ${username}, your roles are: ${roles}" />
-	</c:if>
+	<security:authorize access="hasRole('MEMBER')">
+		<!-- New Message button -->
+		<form action="${pageContext.request.contextPath}/message/new" method="GET">
+			<input type="hidden" name="topicId" value="${topic.id}" />
+			<input type="submit" value="Create new message" />
+		</form>
+	</security:authorize>
+	
 
 	<c:forEach var="tempMessage" items="${messageList}">
 		<h4>
@@ -50,20 +44,46 @@
 		<c:out value="${tempMessage.messageBody}" />
 		<br>
 		<c:out value="${tempMessage.editInfo}" />
-		
-		<c:choose>
+
+
+		<security:authorize access="hasRole('ADMIN')">
+			<!-- Admins can delete any messages -->
+			<form action="${pageContext.request.contextPath}/message/delete"
+				method="GET">
+				<input type="hidden" name="topicId" value="${topic.id}" />
+				<input type="hidden" name="messageId" value="${tempMessage.id}" />
+				<input type="submit" value="Delete message" 
+					onclick="if(!(confirm('Are you sure you want to delete this message?'))) return false"/>
+			</form>
+		</security:authorize>
+
+		<security:authorize access="hasRole('MODERATOR')">
+			<!-- Moderators can edit any messages -->
+			<form action="${pageContext.request.contextPath}/message/edit"
+				method="GET">
+				<input type="hidden" name="messageId" value="${tempMessage.id}" />
+				<input type="submit" value="Moderate message" />
+			</form>
+		</security:authorize>
+
+		<security:authorize access="hasRole('MEMBER')">
+			<!-- Regular members can edit their own messages -->
+			<security:authentication property="principal.username" var="currentUserName" />
+			<c:choose>
 			<c:when test="${anonymousUser}" />
 			<c:otherwise>
 				<c:if
-					test="${pageContext.request.userPrincipal.name eq tempMessage.getAuthor().getUsername()}">
+					test="${currentUserName eq tempMessage.author.username}">
 					<form action="${pageContext.request.contextPath}/message/edit" method="GET">
 						<input type="hidden" name="messageId" value="${tempMessage.id}" />
-						<input type="submit" value="Edit message" />
+						<input type="submit" value="Edit your message" />
 					</form>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
-		<br>
+		</security:authorize>
+
+	
 	</c:forEach>
 </body>
 </html>

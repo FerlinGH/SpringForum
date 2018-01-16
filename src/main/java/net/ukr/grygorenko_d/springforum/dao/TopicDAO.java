@@ -15,4 +15,8 @@ public interface TopicDAO {
 
 	public Topic getTopicRefferenceByTopicId(int topicId);
 
+	public void deleteTopicById(int topicId);
+
+	public Topic getFullTopicById(int topicId);
+
 }

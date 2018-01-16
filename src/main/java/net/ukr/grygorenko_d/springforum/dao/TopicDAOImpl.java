@@ -46,4 +46,20 @@ public class TopicDAOImpl implements TopicDAO {
 		return topicRef;
 	}
 
+	@Override
+	public void deleteTopicById(int topicId) {
+		Topic topic = entityManager.find(Topic.class, topicId);
+		entityManager.remove(topic);
+
+	}
+
+	@Override
+	public Topic getFullTopicById(int topicId) {
+		TypedQuery<Topic> query = entityManager.createQuery(
+				"SELECT t FROM Topic t JOIN FETCH t.author JOIN FETCH t.board JOIN FETCH t.messages WHERE t.id = :param",
+				Topic.class);
+		query.setParameter("param", topicId);
+		return query.getSingleResult();
+	}
+
 }

@@ -83,4 +83,26 @@ public class TopicServiceImpl implements TopicService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public void deleteTopicById(int topicId) {
+		topicDAO.deleteTopicById(topicId);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateTopic(Topic topic) {
+		topicDAO.saveTopic(topic);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Topic getFullTopicById(int topicId) {
+		return topicDAO.getFullTopicById(topicId);
+	}
+
+
+
 }
