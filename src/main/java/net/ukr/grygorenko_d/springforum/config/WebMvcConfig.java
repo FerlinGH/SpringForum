@@ -38,16 +38,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 	// Local dataSource
-	// @Bean
-	// public DataSource dataSource() {
-	// DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	// dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	// dataSource.setUrl("jdbc:mysql://localhost:3306/springforum?useSSL=false");
-	// dataSource.setUsername("springstudent");
-	// dataSource.setPassword("springstudent");
-	//
-	// return dataSource;
-	// }
+//	 @Bean
+//	 public DataSource dataSource() {
+//	 DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//	 dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//	 dataSource.setUrl("jdbc:mysql://localhost:3306/springforum?useSSL=false");
+//	 dataSource.setUsername("springstudent");
+//	 dataSource.setPassword("springstudent");
+//	
+//	 return dataSource;
+//	 }
 
 	// Heroku dataSource
 	@Bean
