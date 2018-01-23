@@ -52,8 +52,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	// Heroku dataSource
 	@Bean
 	public DataSource dataSource() throws URISyntaxException {
-		URI dbUri = new URI(System.getenv(
-				"mysql://b7b1945c2ec3c2:241dc0c2@eu-cdbr-west-02.cleardb.net/heroku_6495798cb7c94b0?reconnect=true"));
+		URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
