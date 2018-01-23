@@ -109,6 +109,6 @@ public class ForumMember {
 
 	@Override
 	public String toString() {
-		return "Forum Member [id=" + id + ", username=" + username + "]";
+		return "Forum Member [username=" + username + "]";
 	}
 }

@@ -54,11 +54,16 @@ public class MessageController {
 
 	@GetMapping("/edit")
 	public String editMessage(@RequestParam("messageId") int messageId, Model model) {
-		Message tempMessage = messageService.getMessageAndTopicByMessageId(messageId);
-		model.addAttribute("message", tempMessage);
-		model.addAttribute("topic", tempMessage.getTopic());
-		model.addAttribute("action", "edit");
-		return "message-form";
+		Message tempMessage = messageService.getMessageAndAuthorAndTopicByMessageId(messageId);
+		boolean isValidEditor = messageService.checkEditAuthority(tempMessage);
+		if(isValidEditor) {
+			model.addAttribute("message", tempMessage);
+			model.addAttribute("topic", tempMessage.getTopic());
+			model.addAttribute("action", "edit");
+			return "message-form";
+		} else {
+			return "access-denied";
+		}
 
 	}
 
@@ -68,5 +73,6 @@ public class MessageController {
 		return "redirect:/";
 
 	}
+	
 
 }

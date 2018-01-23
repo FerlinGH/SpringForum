@@ -107,4 +107,5 @@ public class TopicController {
 		topicService.updateTopic(topic);
 		return "redirect:/";
 	}
+
 }

@@ -50,7 +50,16 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public void removeMessageById(int messageId) {
 		Message message = entityManager.find(Message.class, messageId);
-		entityManager.remove(message);	
+		entityManager.remove(message);
+	}
+
+	@Override
+	public Message getMessageAndAuthorAndTopicByMessageId(int messageId) {
+		TypedQuery<Message> query = entityManager.createQuery(
+				"SELECT m FROM Message m JOIN FETCH m.author JOIN FETCH m.topic WHERE m.id = :param", Message.class);
+		query.setParameter("param", messageId);
+		Message message = query.getSingleResult();
+		return message;
 	}
 
 }

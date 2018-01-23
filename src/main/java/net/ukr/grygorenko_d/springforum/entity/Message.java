@@ -120,7 +120,10 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", creationTime=" + creationTime + ", messageBody=" + messageBody + "]";
+		return "Message [topicTitle=" + topicTitle + ", creationTime=" + creationTime + ", creationTimeSec="
+				+ creationTimeSec + ", messageBody=" + messageBody + "]";
 	}
+
+	
 
 }

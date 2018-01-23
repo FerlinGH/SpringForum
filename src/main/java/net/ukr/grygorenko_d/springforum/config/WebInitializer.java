@@ -15,9 +15,11 @@ public class WebInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(WebMvcConfig.class);
 		ctx.setServletContext(servletContext);
-
+			      
 		ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setLoadOnStartup(1);
 	}
+	
+	
 }

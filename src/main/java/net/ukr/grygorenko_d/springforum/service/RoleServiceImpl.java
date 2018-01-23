@@ -2,6 +2,8 @@ package net.ukr.grygorenko_d.springforum.service;
 
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
 public class RoleServiceImpl implements RoleService {
 
 	private RoleDAO roleDAO;
+	private static Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
 
 	@Autowired
 	public RoleServiceImpl(RoleDAO roleDAO) {
@@ -25,6 +28,9 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional
 	public void createRole(Role role) {
 		roleDAO.createRole(role);
+		LOGGER.info("Role created: " + role);
+		
+		
 
 	}
 

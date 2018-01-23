@@ -83,7 +83,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [id=" + id + ", title=" + title + "]";
+		return "Board [title=" + title + "]";
 	}
 
 }

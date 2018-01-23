@@ -3,6 +3,8 @@ package net.ukr.grygorenko_d.springforum.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +18,7 @@ import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 public class ForumMemberServiceImpl implements ForumMemberService {
 
 	private ForumMemberDAO forumMemberDAO;
+	private static Logger LOGGER = LoggerFactory.getLogger(ForumMemberServiceImpl.class);
 
 	@Autowired
 	public ForumMemberServiceImpl(ForumMemberDAO forumMemberDAO) {
@@ -67,7 +70,9 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	@Override
 	@Transactional
 	public void saveProfile(ForumMember forumMember) {
+		
 		forumMemberDAO.saveMember(forumMember);
+		LOGGER.info("Member profile created: " + forumMember);
 
 	}
 

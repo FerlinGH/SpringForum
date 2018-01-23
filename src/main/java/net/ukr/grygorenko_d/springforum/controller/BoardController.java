@@ -37,4 +37,5 @@ public class BoardController {
 		model.addAttribute("topicsList", topicsList);
 		return "list-topics";
 	}
+	
 }

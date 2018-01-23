@@ -149,7 +149,9 @@ public class Topic {
 
 	@Override
 	public String toString() {
-		return "Topic [id=" + id + ", title=" + title + "]";
+		return "Topic [title=" + title + ", size=" + size + ", lastMessageTime=" + lastMessageTime
+				+ ", lastMessageTimeSec=" + lastMessageTimeSec + "]";
 	}
 
+	
 }

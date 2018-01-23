@@ -85,7 +85,7 @@ public class ForumMemberDetails {
 
 	@Override
 	public String toString() {
-		return "ForumMemberDetails [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "ForumMemberDetails [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", forumMember=" + forumMember + "]";
 	}
 

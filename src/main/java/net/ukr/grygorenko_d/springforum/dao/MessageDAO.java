@@ -17,4 +17,6 @@ public interface MessageDAO {
 
 	public void removeMessageById(int messageId);
 
+	public Message getMessageAndAuthorAndTopicByMessageId(int messageId);
+
 }

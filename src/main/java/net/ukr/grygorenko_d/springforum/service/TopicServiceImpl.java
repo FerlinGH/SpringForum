@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class TopicServiceImpl implements TopicService {
 	private TopicDAO topicDAO;
 	private MessageDAO messageDAO;
 	private BoardDAO boardDAO;
+	private static Logger LOGGER = LoggerFactory.getLogger(TopicServiceImpl.class);
 
 	public TopicServiceImpl() {
 		super();
@@ -59,6 +62,7 @@ public class TopicServiceImpl implements TopicService {
 		board.addTopic(topic);
 
 		boardDAO.saveBoard(board);
+		LOGGER.info("New topic created: " + topic);
 	}
 
 	@Override
@@ -87,6 +91,7 @@ public class TopicServiceImpl implements TopicService {
 	@Transactional
 	public void deleteTopicById(int topicId) {
 		topicDAO.deleteTopicById(topicId);
+		LOGGER.info("Topic deleted, ID was " + topicId);
 		
 	}
 
@@ -94,6 +99,7 @@ public class TopicServiceImpl implements TopicService {
 	@Transactional
 	public void updateTopic(Topic topic) {
 		topicDAO.saveTopic(topic);
+		LOGGER.info("Topic renamed: " + topic);
 		
 	}
 

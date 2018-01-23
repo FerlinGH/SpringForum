@@ -17,6 +17,10 @@ public interface MessageService {
 
 	public void deleteMessage(int topicId, int messageId);
 
+	public boolean checkEditAuthority(Message tempMessage);
+
+	public Message getMessageAndAuthorAndTopicByMessageId(int messageId);
+
 	
 
 }

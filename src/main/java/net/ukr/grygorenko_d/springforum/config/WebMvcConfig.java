@@ -2,8 +2,8 @@ package net.ukr.grygorenko_d.springforum.config;
 
 import java.util.Properties;
 
-import javax.sql.DataSource;
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,7 +49,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setShowSql(true);
+		adapter.setShowSql(false);
 		adapter.setGenerateDdl(true);
 		adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
 
@@ -80,4 +80,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/css/**").addResourceLocations("/resources/css/");
 	}
+	
 }
