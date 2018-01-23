@@ -17,7 +17,7 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<!-- Spring MVC section -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -34,8 +34,8 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-	
-	<!-- Spring Security section -->
+
+		<!-- Spring Security section -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -47,12 +47,12 @@
 			<version>${springsecurity.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <version>${springsecurity.version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${springsecurity.version}</version>
 		</dependency>
-	
-	<!-- Hibernate and SQL section -->
+
+		<!-- Hibernate and SQL section -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -63,8 +63,8 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.44</version>
 		</dependency>
-	
-	<!-- Servlet, JSP and JSTL section -->
+
+		<!-- Servlet, JSP and JSTL section -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -80,7 +80,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- Logger section -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -92,7 +92,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.25</version>
 		</dependency>
-				
+
 	</dependencies>
 
 	<build>
@@ -107,6 +107,32 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.0</version>
 			</plugin>
+
+			<!-- WebApp Runner for Heroku -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.github.jsimone</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>8.5.27.0</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

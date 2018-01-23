@@ -1,5 +1,7 @@
 package net.ukr.grygorenko_d.springforum.config;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -35,13 +37,32 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		return resolver;
 	}
 
+	// Local dataSource
+	// @Bean
+	// public DataSource dataSource() {
+	// DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	// dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	// dataSource.setUrl("jdbc:mysql://localhost:3306/springforum?useSSL=false");
+	// dataSource.setUsername("springstudent");
+	// dataSource.setPassword("springstudent");
+	//
+	// return dataSource;
+	// }
+
+	// Heroku dataSource
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws URISyntaxException {
+		URI dbUri = new URI(System.getenv(
+				"mysql://b7b1945c2ec3c2:241dc0c2@eu-cdbr-west-02.cleardb.net/heroku_6495798cb7c94b0?reconnect=true"));
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/springforum?useSSL=false");
-		dataSource.setUsername("springstudent");
-		dataSource.setPassword("springstudent");
+		dataSource.setUrl(dbUrl);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
 
 		return dataSource;
 	}
@@ -80,5 +101,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/css/**").addResourceLocations("/resources/css/");
 	}
-	
+
 }
