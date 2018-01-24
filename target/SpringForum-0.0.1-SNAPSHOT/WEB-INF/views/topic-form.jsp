@@ -49,7 +49,7 @@
 				</tr>
 			</table>
 			<br>
-			<input type="submit" value="Save message">
+			<input type="submit" value="Create Topic">
 			<input align="right" type="button" value="Back to Boards"
 				onclick="window.location.href='${pageContext.request.contextPath}/';" />
 		</form:form>

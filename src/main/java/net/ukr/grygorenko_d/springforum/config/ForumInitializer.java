@@ -40,7 +40,7 @@ public class ForumInitializer {
 		this.forumMemberService = forumMemberService;
 	}
 
-	@PostConstruct
+//	@PostConstruct
 	public void initDatabase() {
 		LocalDateTime currentTime;
 		

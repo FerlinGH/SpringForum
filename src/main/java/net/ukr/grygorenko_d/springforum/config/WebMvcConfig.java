@@ -80,7 +80,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
 			JpaVendorAdapter adapter) {
 		Properties jpaProp = new Properties();
-		jpaProp.put("hibernate.hbm2ddl.auto", "create-drop");
+		jpaProp.put("hibernate.hbm2ddl.auto", "update");
 
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactory.setDataSource(dataSource);

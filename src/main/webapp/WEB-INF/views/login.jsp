@@ -41,7 +41,7 @@
 
 			<input align="middle" type="submit" value="Login" />
 			<input align="middle" type="button" value="Cancel"
-				onclick="window.location.href='${pageContext.request.contextPath}';" />
+				onclick="window.location.href='${pageContext.request.contextPath}/';" />
 
 		</form:form>
 	</div>
