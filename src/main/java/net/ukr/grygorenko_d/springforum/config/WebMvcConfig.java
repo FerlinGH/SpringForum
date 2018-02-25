@@ -39,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	// Local dataSource
 //	 @Bean
-//	 public DataSource dataSource() {
+//	 public DataSource localDataSource() {
 //	 DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //	 dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 //	 dataSource.setUrl("jdbc:mysql://localhost:3306/springforum?useSSL=false");
@@ -51,7 +51,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	// Heroku dataSource
 	@Bean
-	public DataSource dataSource() throws URISyntaxException {
+	public DataSource herokuDataSource() throws URISyntaxException {
 		URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
