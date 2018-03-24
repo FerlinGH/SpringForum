@@ -3,7 +3,6 @@ package net.ukr.grygorenko_d.springforum.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +26,15 @@ public class ForumMemberController {
 
 	private ForumMemberService forumMemberService;
 	private RoleService roleService;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public ForumMemberController(ForumMemberService forumMemberService, RoleService roleService) {
+	public ForumMemberController(ForumMemberService forumMemberService, RoleService roleService,
+			PasswordEncoder passwordEncoder) {
 		super();
 		this.forumMemberService = forumMemberService;
 		this.roleService = roleService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public ForumMemberController() {
@@ -58,8 +60,7 @@ public class ForumMemberController {
 		Map<Boolean, String> validationStatus = forumMemberService.validateProfile(forumMember, passwordCandidate1,
 				passwordCandidate2, firstName, lastName, email);
 		if (validationStatus.containsKey(true)) {
-			PasswordEncoder encoder = new BCryptPasswordEncoder();
-			String hashedPassword = encoder.encode(passwordCandidate1);
+			String hashedPassword = passwordEncoder.encode(passwordCandidate1);
 			forumMember.setPassword(hashedPassword);
 			Role memberRole = roleService.getRoleRefByType(RoleTypes.MEMBER);
 			forumMember.addRole(memberRole);
