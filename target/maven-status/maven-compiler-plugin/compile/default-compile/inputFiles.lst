@@ -13,6 +13,7 @@ G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\helpers\TextFormatter.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\config\SecurityConfig.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\MessageDAO.java
+G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\SpringForumV2Application.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\controller\ForumMemberController.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\BoardDAO.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\BoardService.java
@@ -32,7 +33,6 @@ G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\MessageServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\RoleServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\controller\TopicController.java
-G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\config\WebInitializer.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\ForumMemberServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\Role.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\RoleDAO.java

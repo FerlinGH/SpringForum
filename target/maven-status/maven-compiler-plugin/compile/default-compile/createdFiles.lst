@@ -21,6 +21,7 @@ net\ukr\grygorenko_d\springforum\config\SecurityWebApplicationInitializer.class
 net\ukr\grygorenko_d\springforum\entity\Role.class
 net\ukr\grygorenko_d\springforum\entity\RoleTypes.class
 net\ukr\grygorenko_d\springforum\entity\Topic.class
+net\ukr\grygorenko_d\SpringForumV2Application.class
 net\ukr\grygorenko_d\springforum\entity\Message.class
 net\ukr\grygorenko_d\springforum\dao\MessageDAO.class
 net\ukr\grygorenko_d\springforum\config\ForumInitializer.class
@@ -32,7 +33,6 @@ net\ukr\grygorenko_d\springforum\controller\MessageController.class
 net\ukr\grygorenko_d\springforum\entity\ForumMember.class
 net\ukr\grygorenko_d\springforum\entity\ForumMemberDetails.class
 net\ukr\grygorenko_d\springforum\dao\TopicDAOImpl.class
-net\ukr\grygorenko_d\springforum\config\WebInitializer.class
 net\ukr\grygorenko_d\springforum\service\TopicService.class
 net\ukr\grygorenko_d\springforum\controller\BoardController.class
 net\ukr\grygorenko_d\springforum\controller\TopicController.class

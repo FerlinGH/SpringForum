@@ -1,32 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ include file="snippets/header.jspf"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<c:set var="pageHeader" value="${board.title}" />
+<%@ include file="snippets/navbar.jspf"%>
 
+<div class="container">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><c:out value="${board.title}" /></title>
-
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/TopicStyle.css ">
-
-</head>
-<body>
-	<h2>
-		<c:out value="${board.title}" />
-	</h2>
-	
-	<div id="user-info" align="right">
-		<c:import url="snippets/user-info.jsp" />
-	</div>
-	
-	<table width="100%" style="border: none;" >
+		<br/>
+	<div class="table-responsive">	
+	<table class="table table-borderless">
 		<tr >
-			<td align="left" bgcolor="#c0c0c0" >
+			<td align="left" >
 				<security:authorize access="hasRole('MEMBER')">
 					<!-- New Topic button -->
 					<form action="${pageContext.request.contextPath}/topic/new" method="GET">
@@ -36,24 +19,25 @@
 				</security:authorize>
 			</td>
 			
-			<td align="right" bgcolor="#c0c0c0" bordercolor="#c0c0c0">
+			<td align="right">
 				<input align="left" type="button" value="Back to Boards"
 					onclick="window.location.href='${pageContext.request.contextPath}/';" />
 			</td>
 		</tr>
 	</table>
+	</div>
 			
-	
-	<table width="100%">
-		<thead>
+	<div class="table-responsive">	
+	<table class="table table-borderless table-striped table-hover">
+		<thead class="thead-light" style="border: 1px; border-style: outset; ">
 			<tr>
 				<th align="left">Topic</th>
 				<th width="100"></th>
-				<th width="100">Messages</th>
-				<th width="150">Created By</th>
+				<th width="100" style="text-align: center;">Messages</th>
+				<th width="150" style="text-align: center;">Created By</th>
 				<th width="200">Last Reply</th>
 		</thead>
-		<tbody>
+		<tbody style="border: 1px;border-style: outset; ">
 			<c:forEach var="tempTopic" items="${topicsList}">
 				<tr>
 					<td align="left">
@@ -62,7 +46,7 @@
 						</c:url> 
 						<a href="${topicLink}"> <c:out value="${tempTopic.title}" /></a>
 					</td>
-					<td width="100">
+					<td>
 						<security:authorize access="hasRole('MODERATOR')">
 							<!-- Rename Topic button -->
 							<form action="${pageContext.request.contextPath}/topic/rename" method="GET">
@@ -82,13 +66,15 @@
 						</security:authorize>
 					
 					</td>
-					<td width="100"><c:out value="${tempTopic.size}" /></td>
-					<td width="150"><c:out value="${tempTopic.getAuthor().getUsername()}" /></td>
-					<td width="200"><c:out value="${tempTopic.lastMessageTime}" /></td>
+					<td align="center"><c:out value="${tempTopic.size}" /></td>
+					<td align="center"><c:out value="${tempTopic.getAuthor().getUsername()}" /></td>
+					<td><c:out value="${tempTopic.lastMessageTime}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	</div>
+	</div>
 
-</body>
-</html>
+	<%@ include file="snippets/footer.jspf"%>

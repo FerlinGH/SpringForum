@@ -1,30 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+<%@ include file="snippets/header.jspf"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<c:set var="pageHeader" value="${topic.title}" />
+<%@ include file="snippets/navbar.jspf"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><c:out value="${topic.title}" /></title>
-
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/MessageStyle.css ">
-
-</head>
-<body>
-
-	<h2>
-		<c:out value="${topic.title}" />
-	</h2>
-
-	<div id="user-info" align="right">
-		<c:import url="snippets/user-info.jsp" />
-	</div>
-
+<div class="container">
+	
+	<br/>
+	
 	<security:authorize access="hasRole('MEMBER')">
 		<!-- New Message button -->
 		<form action="${pageContext.request.contextPath}/message/new" method="GET">
@@ -35,37 +17,23 @@
 
 
 	<c:forEach var="tempMessage" items="${messageList}">
-		<div id="message">
-			<div id="message-header">
-				<table width="100%">
-					<tr>
-						<td align="left">
-							<strong><c:out value="${tempMessage.topicTitle}" /></strong>
-						</td>
-						<td width="150" align="right">
-							<c:out value="${tempMessage.creationTime}" />
-						</td>
-					</tr>
-					<tr>
-						<td align="left">
-							<i><c:out value="${tempMessage.author.username}" /></i>
-						</td>
-						<td />
-					</tr>
-				</table>
-			</div>
-			<br>
-
-			<div id="message-body">
-				<c:out value="${tempMessage.messageBody}" />
-				<br> <br>
-				<i><font size="2"><c:out value="${tempMessage.editInfo}" /></font></i>
-			</div>
-
-			<div id="message-options">
-				<table width="100%">
-					<tr>
-						<td align="left">
+		
+			<div class="table-responsive">
+				<table class="table table-borderless">
+					<thead class="thead-light" style="border: 1px; border-style: outset; ">
+						<tr>
+							<th colspan="4" style="text-align: left;">
+								<c:out value="${tempMessage.topicTitle}" />
+							</th>
+							<th style="text-align: right;">
+								<c:out value="${tempMessage.creationTime}" />
+							</th>
+						</tr>
+					</thead>
+					
+					<tfoot style="background-color: #e9ecef; border: 1px; border-style: outset; ">
+						<tr>
+						<td style="text-align: left;">
 							<security:authorize access="hasRole('ADMIN')">
 								<!-- Admins can delete any messages -->
 								<form action="${pageContext.request.contextPath}/message/delete" method="GET">
@@ -75,9 +43,7 @@
 										onclick="if(!(confirm('Are you sure you want to delete this message?'))) return false" />
 								</form>
 							</security:authorize>
-						</td>
 
-						<td align="center">
 							<security:authorize access="hasRole('MODERATOR')">
 							<!-- Moderators can edit any messages -->
 								<form action="${pageContext.request.contextPath}/message/edit" method="GET">
@@ -86,8 +52,9 @@
 								</form>
 							</security:authorize>
 						</td>
+						<td />
 
-						<td align="center">
+						<td style="text-align: center;">
 							<security:authorize access="hasRole('MEMBER')">
 							<!-- Regular members can edit their own messages -->
 							<security:authentication property="principal.username" var="currentUserName" />
@@ -104,16 +71,35 @@
 								</c:choose>
 							</security:authorize>
 						</td>
+						
+						<td />
 				
-						<td align="right">
-							<input align="right" type="button" value="Back to Boards"
+						<td style="text-align: right;">
+							<input type="button" value="Back to Boards"
 								onclick="window.location.href='${pageContext.request.contextPath}/';" />
 						</td>
+						</tr>
+					</tfoot>
+					
+					
+				<tbody style="border: 1px; border-style: outset; ">
+					<tr>
+						<td style="text-align: center; vertical-align:bottom; border: 1px; border-style: outset;">
+							<i><c:out value="${tempMessage.author.username}" /></i>
+						</td>
+						<td colspan="4" style="text-align: left;">
+							<c:out value="${tempMessage.messageBody}" />
+							<br> <br>
+							<i><font size="2"><c:out value="${tempMessage.editInfo}" /></font></i>
+						</td>
 					</tr>
+				</tbody>
 				</table>
 			</div>
-		</div>
 		<br>
 	</c:forEach>
-</body>
-</html>
+
+	
+</div>
+
+	<%@ include file="snippets/footer.jspf"%>

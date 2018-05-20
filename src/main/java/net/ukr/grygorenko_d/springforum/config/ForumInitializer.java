@@ -22,7 +22,7 @@ import net.ukr.grygorenko_d.springforum.service.BoardService;
 import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
 import net.ukr.grygorenko_d.springforum.service.RoleService;
 
-@Component
+//@Component
 public class ForumInitializer {
 
 	private BoardService boardService;

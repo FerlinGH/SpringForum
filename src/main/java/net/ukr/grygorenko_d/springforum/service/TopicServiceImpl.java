@@ -31,7 +31,7 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Autowired
-	public TopicServiceImpl(TopicDAO topicDAO, MessageDAO messageDAO, BoardDAO boardDAO) {
+	public TopicServiceImpl(TopicDAO topicDAO,MessageDAO messageDAO, BoardDAO boardDAO) {
 		super();
 		this.topicDAO = topicDAO;
 		this.messageDAO = messageDAO;

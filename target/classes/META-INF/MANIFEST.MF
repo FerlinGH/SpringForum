@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: SpringForum
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Dmytro
+Implementation-Vendor-Id: net.ukr.grygorenko_d
+Build-Jdk: 1.8.0_144
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/SpringForum
+Created-By: Maven Integration for Eclipse
+

@@ -20,6 +20,8 @@ import net.ukr.grygorenko_d.springforum.helpers.TextFormatter;
 import net.ukr.grygorenko_d.springforum.service.ForumMemberService;
 import net.ukr.grygorenko_d.springforum.service.RoleService;
 
+
+
 @Controller
 @RequestMapping("/forumMember")
 public class ForumMemberController {
