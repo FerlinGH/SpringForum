@@ -8,7 +8,7 @@
 
  	<div id="form" align="center" style="width: 400px; margin: auto;">  
 
-		<form:form action="${pageContext.request.contextPath}/authenticateUser"	method="POST">
+		<form:form action="${context}/authenticateUser"	method="POST">
 			<!--  Check for login error -->
 			<c:if test="${param.error != null}">
 				<strong> <font color="red">Invalid username/password </font> </strong>
@@ -26,9 +26,9 @@
 			</div>
 				
 
-			<input align="middle" type="submit" value="Login" />
-			<input align="middle" type="button" value="Cancel"
-				onclick="window.location.href='${pageContext.request.contextPath}/';" />
+			<input align="middle" class="btn btn-success" type="submit" value="Login" />
+			<button type="button" class="btn btn-primary" 
+					onclick="window.location.href='${context}/';">Cancel</button>
 
 		</form:form>
 	</div>

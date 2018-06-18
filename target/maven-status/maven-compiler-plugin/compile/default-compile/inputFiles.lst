@@ -6,7 +6,6 @@ G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\BoardServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\RoleDAOImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\ForumMemberDAOImpl.java
-G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\config\ForumInitializer.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\controller\MessageController.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\MessageDAOImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\RoleService.java
@@ -28,7 +27,8 @@ G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\Topic.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\Board.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\TopicServiceImpl.java
-G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\ForumMemberDetails.java
+G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\constraint\ValidPassword.java
+G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\constraint\PasswordConstraintValidator.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\ForumMemberService.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\MessageServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\RoleServiceImpl.java

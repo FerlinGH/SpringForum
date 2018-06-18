@@ -17,9 +17,9 @@
 		
 		<br>
 		
-		<input type="submit" value="OK"> 
-		<input type="button" value="Cancel"
-			onclick="window.location.href='${pageContext.request.contextPath }/';" />			
+		<input type="submit" class="btn btn-success" value="Rename topic"> 
+		<button type="button" class="btn btn-primary" 
+			onclick="window.location.href='${context}/';">Cancel</button>			
 	</form>
 	</div>
 	

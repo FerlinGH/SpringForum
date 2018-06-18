@@ -22,9 +22,9 @@
 			<form:textarea class="form-control" rows="8" path="messageBody" placeholder="Enter your message here" id="message" />
 					
 			<br>
-			<input type="submit" value="Create Topic">
-			<input align="right" type="button" value="Back to Boards"
-				onclick="window.location.href='${pageContext.request.contextPath}/';" />
+			<input type="submit" class="btn btn-success" value="Create Topic">
+			<button type="button" class="btn btn-primary" 
+				onclick="window.location.href='${context}/';">Cancel</button>
 		</form:form>
 	</div>
 	

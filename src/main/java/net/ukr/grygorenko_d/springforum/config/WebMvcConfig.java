@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
 
-	// Heroku dataSource
+//	 Heroku dataSource
 	@Bean
 	@Primary
 	public DataSource herokuDataSource() throws URISyntaxException {

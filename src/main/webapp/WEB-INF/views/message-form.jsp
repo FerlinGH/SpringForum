@@ -22,9 +22,9 @@
 				
 			<input type="hidden" name="topicId" value="${topic.id}">
 			<input type="hidden" name="action" value="${action}">
-			<input type="submit" value="Save message">
-			<input align="right" type="button" value="Back to Boards"
-				onclick="window.location.href='${pageContext.request.contextPath}/';" />
+			<input type="submit" class="btn btn-success" value="Save message">
+			<button type="button" class="btn btn-primary" 
+				onclick="window.location.href='${context}/';">Back to Boards</button>
 		</form:form>
 	</div>
 	

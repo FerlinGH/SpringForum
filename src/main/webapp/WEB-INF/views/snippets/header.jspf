@@ -24,17 +24,6 @@
 		color: #770000;
 		text-decoration: none;
 	}
-	
-	input[type=submit], input[type=button] {
-	border: none;
-	background-color: #ce0000;
-	color: white;
-	padding: 6px;
-	margin: 2px;
-	cursor: pointer;
-	font-size: 14px
-	}	
-	
 	</style>
 		
 	<title>SpringForum - Powered by Spring Boot 2.0.1</title>

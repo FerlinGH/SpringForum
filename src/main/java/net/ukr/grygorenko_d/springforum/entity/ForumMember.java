@@ -15,11 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import net.ukr.grygorenko_d.springforum.constraint.ValidPassword;
 
 @Entity
-@Table(name = "members")
+@Table(name = "member")
 public class ForumMember {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +31,31 @@ public class ForumMember {
 	private int id;
 
 	@Column(name = "username")
+	@Size(min = 3, message = "Username should contain at least 3 characters!")
+	@NotBlank(message = "This field cannot be blank!")
 	private String username;
 
 	@Column(name = "password")
+	@ValidPassword
 	private String password;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH })
-	@JoinColumn(name = "member_details_id")
-	private ForumMemberDetails memberDetails;
+	@Column(name = "confirm_password")
+	@ValidPassword
+	private String confirmPassword;
+
+	@Column(name = "first_name")
+	@Size(min = 3, message = "First name should contain at least 3 characters!")
+	@NotBlank(message = "This field cannot be blank!")
+	private String firstName;
+
+	@Column(name = "last_name")
+	@Size(min = 3, message = "First name should contain at least 3 characters!")
+	@NotBlank(message = "This field cannot be blank!")
+	private String lastName;
+
+	@Column(name = "email")
+	@Email(message = "Invalid email!")
+	private String email;
 
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE,
 			CascadeType.PERSIST, CascadeType.REFRESH })
@@ -55,12 +75,16 @@ public class ForumMember {
 		roles = new HashSet<Role>();
 	}
 
-	public ForumMember(String username, String password, ForumMemberDetails memberDetails) {
+	public ForumMember(String username, String password, String confirmPassword, String firstName, String lastName,
+			String email) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.memberDetails = memberDetails;
-		roles = new HashSet<Role>();
+		this.confirmPassword = confirmPassword;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.roles = new HashSet<Role>();
 	}
 
 	public int getId() {
@@ -87,12 +111,36 @@ public class ForumMember {
 		this.password = password;
 	}
 
-	public ForumMemberDetails getMemberDetails() {
-		return memberDetails;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setMemberDetails(ForumMemberDetails memberDetails) {
-		this.memberDetails = memberDetails;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Set<Role> getRoles() {
@@ -109,6 +157,8 @@ public class ForumMember {
 
 	@Override
 	public String toString() {
-		return "Forum Member [username=" + username + "]";
+		return "ForumMember [id=" + id + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
+
 }

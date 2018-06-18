@@ -29,12 +29,6 @@ public class BoardController {
 		model.addAttribute("boards", boardService.listBoards());
 		return "list-boards";
 	}
-	
-	@GetMapping("/test")
-	public String testShowBoards(Model model) {
-		model.addAttribute("boards", boardService.listBoards());
-		return "test";
-	}
 
 	@GetMapping("/showBoard")
 	public String showTopics(@RequestParam("boardId") int boardId, Model model) {

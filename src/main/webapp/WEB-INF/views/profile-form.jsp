@@ -9,30 +9,46 @@
 
 		<form:form  class="form-group" action="validateProfile" modelAttribute="forumMember" method="POST">
 			<form:hidden path="id" />
-			<strong> <font color="red"> <c:out value="${message}" /> </font> </strong>
-			<br> 
-						
-			 	<label for="login" class="font-weight-bold">Choose your nickname</label>
-			    <form:input path="username" class="form-control" id="login" required="required"/>
-			
-			 	<label for="password1" class="font-weight-bold">Create your password </label>
-			    <input type="password" name="passwordCandidate1" class="form-control" id="password1" required="required"/>
-			
-			 	<label for="password2" class="font-weight-bold">Re-enter your password </label>
-			    <input type="password" name="passwordCandidate2" class="form-control" id="password2" required="required"/>			
-			
-			 	<label for="firstname" class="font-weight-bold">First Name </label>
-			    <input type="text" name="firstName" value="${firstName}" class="form-control" id="firstname" required="required"  />
 				
-			 	<label for="lastname" class="font-weight-bold">Last Name </label>
-			    <input type="text" name="lastName" value="${lastName}" class="form-control" id="lastname" required="required"  />			
+				<fieldset class="form-group">		
+			 	<form:label path="username" class="font-weight-bold">Choose your nickname</form:label>
+			    <form:input path="username" class="form-control" id="login" required="required"/>
+			    <form:errors path="username" cssClass="text-danger"/> 
+			    </fieldset>
+			    	
+			    <fieldset class="form-group">		
+			 	<form:label path="password" class="font-weight-bold">Create your password </form:label>
+			    <form:input path="password" class="form-control" type="password" id="password" required="required"/>
+			    <form:errors path="password" cssClass="text-danger"/> 
+				</fieldset>
 			
-			 	<label for="email" class="font-weight-bold">Email </label>
-			    <input type="text" name="email" value="${email}" class="form-control" id="email" required="required"  />
+				<fieldset class="form-group">
+			 	<form:label path="confirmPassword" class="font-weight-bold">Re-enter your password </form:label>
+			    <form:input path="confirmPassword" class="form-control" type="password" id="confirmPassword" required="required"/>			
+				<form:errors path="password" cssClass="text-danger"/> 
+				</fieldset>
+			
+				<fieldset class="form-group">
+			 	<form:label path="firstName" class="font-weight-bold">First Name </form:label>
+			    <form:input path="firstName" class="form-control" id="firstname" required="required"  />
+			    <form:errors path="firstName" cssClass="text-danger"/>
+				</fieldset>
+				
+				<fieldset class="form-group">
+			 	<form:label path="lastName" class="font-weight-bold">Last Name </form:label>
+			    <form:input path="lastName" class="form-control" id="lastname" required="required"  />	
+			    <form:errors path="lastName" cssClass="text-danger"/>	
+				</fieldset>
+			
+				<fieldset class="form-group">
+			 	<form:label path="email" class="font-weight-bold">Email </form:label>
+			    <form:input path="email" class="form-control" id="email" required="required"  />
+				<form:errors path="email" cssClass="text-danger"/>
+				</fieldset>
 		
-			<input type="submit" value="Create Profile" />
-			<input type="button" value="Cancel"
-				onclick="window.location.href='${pageContext.request.contextPath}/';" />
+			<input type="submit" class="btn btn-success" value="Create Profile" />
+			<input type="button" class="btn btn-primary" value="Cancel"
+				onclick="window.location.href='${context}/';" />
 		</form:form>
 	</div>
 	

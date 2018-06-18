@@ -7,9 +7,9 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:net.ukr.grygorenko_d.springforum.config.ForumInitializer</config>
 	</configs>
 	<autoconfigs>
+		<config>java:net.ukr.grygorenko_d.SpringForumV2Application</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

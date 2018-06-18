@@ -11,8 +11,8 @@
 		<h3>FORBIDDEN</h3>
 		Access denied for the page you requested (ERROR 403). 
 		<br><br>
-		<input type="button" value="Back to Boards"
-			onclick="window.location.href='${pageContext.request.contextPath}/';" />
+		<button type="button" class="btn btn-primary" 
+			onclick="window.location.href='${context}/';">Back to Boards</button>
 	</div>
 	
 </div>
