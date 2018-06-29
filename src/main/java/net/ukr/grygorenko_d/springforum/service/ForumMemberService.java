@@ -1,7 +1,5 @@
 package net.ukr.grygorenko_d.springforum.service;
 
-import javax.validation.Valid;
-
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 
 public interface ForumMemberService {
@@ -16,6 +14,6 @@ public interface ForumMemberService {
 
 	public ForumMember getCurrentUserRef();
 
-	public void createProfile(@Valid ForumMember forumMember);
+	public void setProfile(ForumMember forumMember, String action);
 
 }

@@ -36,5 +36,6 @@ G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\ForumMemberServiceImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\Role.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\RoleDAO.java
+G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\entity\Avatar.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\dao\TopicDAOImpl.java
 G:\Workspaces\Java Spring Tutorial\SpringForum\src\main\java\net\ukr\grygorenko_d\springforum\service\UserDetailsServiceImpl.java

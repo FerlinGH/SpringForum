@@ -77,8 +77,8 @@ public class ForumMemberDAOImpl implements ForumMemberDAO {
 
 	@Override
 	public ForumMember getUserRefferenceByMessageId(int messageId) {
-		TypedQuery<Message> query = entityManager.createQuery(
-				"SELECT m FROM Message m JOIN FETCH m.author WHERE m.id = :param", Message.class);
+		TypedQuery<Message> query = entityManager
+				.createQuery("SELECT m FROM Message m JOIN FETCH m.author WHERE m.id = :param", Message.class);
 		query.setParameter("param", messageId);
 		Message tempMessage = query.getSingleResult();
 		ForumMember forumMemberRef = entityManager.getReference(ForumMember.class, tempMessage.getAuthor().getId());

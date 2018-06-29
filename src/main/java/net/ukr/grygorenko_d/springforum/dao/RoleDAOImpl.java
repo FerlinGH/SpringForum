@@ -23,8 +23,8 @@ public class RoleDAOImpl implements RoleDAO {
 
 	@Override
 	public Role getRoleRefByType(RoleTypes roleType) {
-		TypedQuery<Role> query = entityManager
-				.createQuery("SELECT r FROM Role r WHERE (r.roleType = :role)", Role.class);
+		TypedQuery<Role> query = entityManager.createQuery("SELECT r FROM Role r WHERE (r.roleType = :role)",
+				Role.class);
 		query.setParameter("role", roleType);
 		Role dbRole = query.getSingleResult();
 		Role roleRef = entityManager.find(Role.class, dbRole.getId());

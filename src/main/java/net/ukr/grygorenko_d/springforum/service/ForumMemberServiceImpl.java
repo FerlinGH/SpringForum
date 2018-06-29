@@ -1,5 +1,7 @@
 package net.ukr.grygorenko_d.springforum.service;
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,6 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 	private PasswordEncoder passwordEncoder;
 	private static Logger LOGGER = LoggerFactory.getLogger(ForumMemberServiceImpl.class);
 
-	
-
 	@Autowired
 	public ForumMemberServiceImpl(ForumMemberDAO forumMemberDAO, RoleService roleService,
 			PasswordEncoder passwordEncoder) {
@@ -37,22 +37,27 @@ public class ForumMemberServiceImpl implements ForumMemberService {
 		super();
 	}
 
-	public void createProfile(ForumMember forumMember) {
-		String hashedPassword = passwordEncoder.encode(forumMember.getPassword());
-		forumMember.setPassword(hashedPassword);
-		forumMember.setConfirmPassword(hashedPassword);
-		Role memberRole = roleService.getRoleRefByType(RoleTypes.MEMBER);
-		forumMember.addRole(memberRole);
-		this.saveProfile(forumMember);
+	@Override
+	@Transactional
+	public void setProfile(ForumMember forumMember, String action) {
+		if (action.equals("create")) {
+			String hashedPassword = passwordEncoder.encode(forumMember.getPassword());
+			forumMember.setPassword(hashedPassword);
+			forumMember.setConfirmPassword(hashedPassword);
+			Role memberRole = roleService.getRoleRefByType(RoleTypes.MEMBER);
+			forumMember.addRole(memberRole);
+			this.saveProfile(forumMember);
+		} else {
+			Set<Role> memberRoles = roleService.getRolesByUsername(forumMember.getUsername());
+			forumMember.setRoles(memberRoles);
+			this.saveProfile(forumMember);
+		}
 	}
-	
+
 	@Override
 	@Transactional
 	public void saveProfile(ForumMember forumMember) {
-
 		forumMemberDAO.saveMember(forumMember);
-		LOGGER.info("Member profile created: " + forumMember);
-
 	}
 
 	@Override

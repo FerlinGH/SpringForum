@@ -29,6 +29,7 @@ net\ukr\grygorenko_d\springforum\dao\MessageDAO.class
 net\ukr\grygorenko_d\springforum\config\SecurityConfig.class
 net\ukr\grygorenko_d\springforum\dao\RoleDAOImpl.class
 net\ukr\grygorenko_d\springforum\dao\RoleDAO.class
+net\ukr\grygorenko_d\springforum\entity\Avatar.class
 net\ukr\grygorenko_d\springforum\dao\BoardDAO.class
 net\ukr\grygorenko_d\springforum\controller\MessageController.class
 net\ukr\grygorenko_d\springforum\entity\ForumMember.class
