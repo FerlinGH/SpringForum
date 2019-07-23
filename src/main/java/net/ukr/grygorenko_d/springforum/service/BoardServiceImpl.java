@@ -1,53 +1,59 @@
 package net.ukr.grygorenko_d.springforum.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.ukr.grygorenko_d.springforum.dao.BoardDAO;
-import net.ukr.grygorenko_d.springforum.dao.TopicDAO;
 import net.ukr.grygorenko_d.springforum.entity.Board;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
+import net.ukr.grygorenko_d.springforum.repository.BoardRepository;
+import net.ukr.grygorenko_d.springforum.repository.TopicRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
-	private BoardDAO boardDAO;
-	private TopicDAO topicDAO;
+	private BoardRepository boardRepository;
+	private TopicRepository topicRepository;
 
 	@Autowired
-	public BoardServiceImpl(BoardDAO boardDAO, TopicDAO topicDAO) {
+	public BoardServiceImpl(BoardRepository boardRepository, TopicRepository topicRepository) {
 		super();
-		this.boardDAO = boardDAO;
-		this.topicDAO = topicDAO;
+		this.boardRepository = boardRepository;
+		this.topicRepository = topicRepository;
 	}
 
 	@Override
 	@Transactional
 	public void saveBoard(Board board) {
-		boardDAO.saveBoard(board);
+		boardRepository.save(board);
 
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Board> listBoards() {
-		return boardDAO.getAllBoards();
+	public List<Board> getBoards() {
+		return boardRepository.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Topic> listTopicsWithAuthorsByBoardId(int boardId) {
-		Board board = boardDAO.getBoardById(boardId);
-		return topicDAO.getTopicsWithAuthorsByBoard(board);
+		Board board = getBoardById(boardId);
+		return topicRepository.findWithAuthorByBoard(board);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Board getBoardById(int boardId) {
-		return boardDAO.getBoardById(boardId);
+		Board board = null;
+		Optional<Board> findById = boardRepository.findById(boardId);
+		if (findById.isPresent()) {
+			board = findById.get();
+		}
+		return board;
 	}
 
 }

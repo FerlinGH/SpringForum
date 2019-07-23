@@ -3,6 +3,7 @@ package net.ukr.grygorenko_d.springforum.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,20 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.ukr.grygorenko_d.springforum.dao.BoardDAO;
-import net.ukr.grygorenko_d.springforum.dao.MessageDAO;
-import net.ukr.grygorenko_d.springforum.dao.TopicDAO;
 import net.ukr.grygorenko_d.springforum.entity.Board;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
+import net.ukr.grygorenko_d.springforum.repository.BoardRepository;
+import net.ukr.grygorenko_d.springforum.repository.MessageRepository;
+import net.ukr.grygorenko_d.springforum.repository.TopicRepository;
 
 @Service
 public class TopicServiceImpl implements TopicService {
 
-	private TopicDAO topicDAO;
-	private MessageDAO messageDAO;
-	private BoardDAO boardDAO;
+	private MessageRepository messageRepository;
+	private BoardRepository boardRepository;
+	private TopicRepository topicRepository;
 	private static Logger LOGGER = LoggerFactory.getLogger(TopicServiceImpl.class);
 
 	public TopicServiceImpl() {
@@ -31,37 +32,43 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Autowired
-	public TopicServiceImpl(TopicDAO topicDAO,MessageDAO messageDAO, BoardDAO boardDAO) {
+	public TopicServiceImpl(MessageRepository messageRepository, BoardRepository boardRepository,
+			TopicRepository topicRepository) {
 		super();
-		this.topicDAO = topicDAO;
-		this.messageDAO = messageDAO;
-		this.boardDAO = boardDAO;
+		this.messageRepository = messageRepository;
+		this.boardRepository = boardRepository;
+		this.topicRepository = topicRepository;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Message> getMessagesWithAuthorsByTopicId(int topicId) {
-		Topic tempTopic = topicDAO.getTopicById(topicId);
-		return messageDAO.getMessagesWithAuthorsByTopic(tempTopic);
+		Topic tempTopic = getTopicById(topicId);
+		return messageRepository.findWithAuthorByTopic(tempTopic);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Topic getTopicById(int topicId) {
-		return topicDAO.getTopicById(topicId);
+		Topic topic = null;
+		Optional<Topic> findById = topicRepository.findById(topicId);
+		if (findById.isPresent()) {
+			topic = findById.get();
+		}
+		return topic;
 	}
 
 	@Override
 	@Transactional
 	public void saveNewTopic(int boardId, String topicName, Message message, ForumMember userRef) {
-		Board board = boardDAO.getBoardAndTopicsByBoarId(boardId);
+		Board board = boardRepository.findWithTopicsById(boardId);
 		Topic tempTopic = new Topic();
 		Topic topic = prepareTopic(tempTopic, topicName, userRef);
 
 		topic.addMessage(message);
 		board.addTopic(topic);
 
-		boardDAO.saveBoard(board);
+		boardRepository.save(board);
 		LOGGER.info("New topic created: " + topic);
 	}
 
@@ -90,25 +97,23 @@ public class TopicServiceImpl implements TopicService {
 	@Override
 	@Transactional
 	public void deleteTopicById(int topicId) {
-		topicDAO.deleteTopicById(topicId);
+		topicRepository.deleteById(topicId);
 		LOGGER.info("Topic deleted, ID was " + topicId);
-		
+
 	}
 
 	@Override
 	@Transactional
 	public void updateTopic(Topic topic) {
-		topicDAO.saveTopic(topic);
+		topicRepository.save(topic);
 		LOGGER.info("Topic renamed: " + topic);
-		
+
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Topic getFullTopicById(int topicId) {
-		return topicDAO.getFullTopicById(topicId);
+		return topicRepository.findFullById(topicId);
 	}
-
-
 
 }

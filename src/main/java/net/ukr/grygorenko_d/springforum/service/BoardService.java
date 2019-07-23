@@ -9,7 +9,7 @@ public interface BoardService {
 
 	public void saveBoard(Board board);
 
-	public List<Board> listBoards();
+	public List<Board> getBoards();
 
 	public List<Topic> listTopicsWithAuthorsByBoardId(int boardId);
 

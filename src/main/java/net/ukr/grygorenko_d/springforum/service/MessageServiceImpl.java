@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -14,29 +15,30 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.ukr.grygorenko_d.springforum.dao.ForumMemberDAO;
-import net.ukr.grygorenko_d.springforum.dao.MessageDAO;
-import net.ukr.grygorenko_d.springforum.dao.TopicDAO;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Message;
 import net.ukr.grygorenko_d.springforum.entity.Role;
 import net.ukr.grygorenko_d.springforum.entity.Topic;
 import net.ukr.grygorenko_d.springforum.helpers.LocalDateTimeAdapter;
+import net.ukr.grygorenko_d.springforum.repository.ForumMemberRepository;
+import net.ukr.grygorenko_d.springforum.repository.MessageRepository;
+import net.ukr.grygorenko_d.springforum.repository.TopicRepository;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
-	private TopicDAO topicDAO;
-	private ForumMemberDAO forumMemberDAO;
-	private MessageDAO messageDAO;
+	private TopicRepository topicRepository;
+	private ForumMemberRepository forumMemberRepository;
+	private MessageRepository messageRepository;
 	private static Logger LOGGER = LoggerFactory.getLogger(MessageServiceImpl.class);
 
 	@Autowired
-	public MessageServiceImpl(TopicDAO topicDAO, ForumMemberDAO forumMemberDAO, MessageDAO messageDAO) {
+	public MessageServiceImpl(TopicRepository topicRepository, MessageRepository messageRepository,
+			ForumMemberRepository forumMemberRepository) {
 		super();
-		this.topicDAO = topicDAO;
-		this.forumMemberDAO = forumMemberDAO;
-		this.messageDAO = messageDAO;
+		this.topicRepository = topicRepository;
+		this.messageRepository = messageRepository;
+		this.forumMemberRepository = forumMemberRepository;
 	}
 
 	@Override
@@ -56,54 +58,72 @@ public class MessageServiceImpl implements MessageService {
 			System.out.println("Creating new message...");
 			User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String login = tempUser.getUsername();
-			ForumMember userRef = forumMemberDAO.getMemberRefByUsername(login);
+			ForumMember user = forumMemberRepository.findByUsername(login);
+			ForumMember userRef = forumMemberRepository.getOne(user.getId());
 			Message message = prepareMessage(tempMessage, userRef);
 
-			Topic topic = topicDAO.getTopicById(topicId);
+			Topic topic = getTopicById(topicId);
 			topic.addMessage(message);
 
-			topicDAO.saveTopic(topic);
+			topicRepository.save(topic);
 			LOGGER.info("New message: " + message);
 		} else {
 			System.out.println("Updating the message...");
 			int messageId = tempMessage.getId();
 			User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String login = tempUser.getUsername();
-			ForumMember forumMemberRef = forumMemberDAO.getUserRefferenceByMessageId(messageId);
-			Topic topicRef = topicDAO.getTopicRefferenceByTopicId(topicId);
+			Message byMessage = messageRepository.findFullById(messageId);
+			ForumMember forumMemberRef = forumMemberRepository.getOne(byMessage.getAuthor().getId());
+			Topic topicRef = topicRepository.getOne(topicId);
 			tempMessage.setAuthor(forumMemberRef);
 			tempMessage.setTopic(topicRef);
 			tempMessage.setEditInfo(String.format("This message was last edited by %s at %s.", login,
 					LocalDateTimeAdapter.describeTime(LocalDateTime.now())));
-			messageDAO.saveMessage(tempMessage);
+			messageRepository.save(tempMessage);
 			LOGGER.info("Message updated: " + tempMessage);
 		}
+	}
+
+	@Transactional(readOnly = true)
+	private Topic getTopicById(int topicId) {
+		Topic topic = null;
+		Optional<Topic> findById = topicRepository.findById(topicId);
+		if (findById.isPresent()) {
+			topic = findById.get();
+		}
+		return topic;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Message getMessageById(int messageId) {
-		return messageDAO.getMessageById(messageId);
+		Message message = null;
+		Optional<Message> findById = messageRepository.findById(messageId);
+		if (findById.isPresent()) {
+			message = findById.get();
+		}
+		return message;
+
 	}
 
 	@Override
 	@Transactional
 	public void updateMessage(Message message) {
-		messageDAO.saveMessage(message);
+		messageRepository.save(message);
 
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Message getMessageAndTopicByMessageId(int messageId) {
-		return messageDAO.getMessageAndTopicByMessageId(messageId);
+		return messageRepository.findWithTopicById(messageId);
 	}
 
 	@Override
 	@Transactional
 	public void deleteMessage(int topicId, int messageId) {
-		Topic topic = topicDAO.getTopicById(topicId);
-		messageDAO.removeMessageById(messageId);
+		Topic topic = getTopicById(topicId);
+		messageRepository.deleteById(messageId);
 		LOGGER.info("Message removed, ID was " + messageId);
 		topic.setSize((topic.getSize()) - 1);
 	}
@@ -113,7 +133,7 @@ public class MessageServiceImpl implements MessageService {
 	public boolean checkEditAuthority(Message tempMessage) {
 		User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String login = tempUser.getUsername();
-		ForumMember member = forumMemberDAO.getUserAndRolesByUsername(login);
+		ForumMember member = forumMemberRepository.findWithRolesByUsername(login);
 		System.out.println("User extracted: " + member);
 		Set<String> roles = new HashSet<>();
 		for (Role role : member.getRoles()) {
@@ -139,7 +159,7 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	@Transactional(readOnly = true)
 	public Message getMessageAndAuthorAndTopicByMessageId(int messageId) {
-		return messageDAO.getMessageAndAuthorAndTopicByMessageId(messageId);
+		return messageRepository.findFullById(messageId);
 	}
 
 }

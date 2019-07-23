@@ -8,30 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.ukr.grygorenko_d.springforum.dao.ForumMemberDAO;
-import net.ukr.grygorenko_d.springforum.dao.RoleDAO;
 import net.ukr.grygorenko_d.springforum.entity.ForumMember;
 import net.ukr.grygorenko_d.springforum.entity.Role;
 import net.ukr.grygorenko_d.springforum.entity.RoleTypes;
+import net.ukr.grygorenko_d.springforum.repository.ForumMemberRepository;
+import net.ukr.grygorenko_d.springforum.repository.RoleRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	private RoleDAO roleDAO;
-	private ForumMemberDAO forumMemberDAO;
+	private RoleRepository roleRepository;
+	private ForumMemberRepository forumMemberRepository;
 	private static Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
 
 	@Autowired
-	public RoleServiceImpl(RoleDAO roleDAO, ForumMemberDAO forumMemberDAO) {
+	public RoleServiceImpl(RoleRepository roleRepository, ForumMemberRepository forumMemberRepository) {
 		super();
-		this.forumMemberDAO = forumMemberDAO;
-		this.roleDAO = roleDAO;
+		this.roleRepository = roleRepository;
+		this.forumMemberRepository = forumMemberRepository;
 	}
 
 	@Override
 	@Transactional
 	public void createRole(Role role) {
-		roleDAO.createRole(role);
+		roleRepository.save(role);
 		LOGGER.info("Role created: " + role);
 
 	}
@@ -39,12 +39,12 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional(readOnly = true)
 	public Role getRoleRefByType(RoleTypes roleType) {
-		return roleDAO.getRoleRefByType(roleType);
+		return roleRepository.findByRoleType(roleType);
 	}
 
 	@Override
 	public Set<Role> getRolesByUsername(String username) {
-		ForumMember forumMember = forumMemberDAO.getUserAndRolesByUsername(username);
+		ForumMember forumMember = forumMemberRepository.findWithRolesByUsername(username);
 		Set<Role> roles = forumMember.getRoles();
 		return roles;
 	}
