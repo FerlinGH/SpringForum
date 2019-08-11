@@ -77,7 +77,7 @@ public class ForumMember {
 
 	public ForumMember() {
 		super();
-		roles = new HashSet<Role>();
+		roles = new HashSet<>();
 	}
 
 	public ForumMember(String username, String password, String confirmPassword, String firstName, String lastName,
@@ -89,7 +89,7 @@ public class ForumMember {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.roles = new HashSet<Role>();
+		this.roles = new HashSet<>();
 	}
 
 	public int getId() {

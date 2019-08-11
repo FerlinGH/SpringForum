@@ -30,7 +30,7 @@ public class MessageServiceImpl implements MessageService {
 	private TopicRepository topicRepository;
 	private ForumMemberRepository forumMemberRepository;
 	private MessageRepository messageRepository;
-	private static Logger LOGGER = LoggerFactory.getLogger(MessageServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
 	@Autowired
 	public MessageServiceImpl(TopicRepository topicRepository, MessageRepository messageRepository,
@@ -66,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
 			topic.addMessage(message);
 
 			topicRepository.save(topic);
-			LOGGER.info("New message: " + message);
+			logger.info("New message: {}", message);
 		} else {
 			System.out.println("Updating the message...");
 			int messageId = tempMessage.getId();
@@ -80,11 +80,10 @@ public class MessageServiceImpl implements MessageService {
 			tempMessage.setEditInfo(String.format("This message was last edited by %s at %s.", login,
 					LocalDateTimeAdapter.describeTime(LocalDateTime.now())));
 			messageRepository.save(tempMessage);
-			LOGGER.info("Message updated: " + tempMessage);
+			logger.info("Message updated: {}", tempMessage);
 		}
 	}
 
-	@Transactional(readOnly = true)
 	private Topic getTopicById(int topicId) {
 		Topic topic = null;
 		Optional<Topic> findById = topicRepository.findById(topicId);
@@ -124,7 +123,7 @@ public class MessageServiceImpl implements MessageService {
 	public void deleteMessage(int topicId, int messageId) {
 		Topic topic = getTopicById(topicId);
 		messageRepository.deleteById(messageId);
-		LOGGER.info("Message removed, ID was " + messageId);
+		logger.info("Message removed, ID was {}", messageId);
 		topic.setSize((topic.getSize()) - 1);
 	}
 

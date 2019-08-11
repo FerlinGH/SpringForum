@@ -36,13 +36,13 @@ public class Role {
 
 	public Role() {
 		super();
-		members = new ArrayList<ForumMember>();
+		members = new ArrayList<>();
 	}
 
 	public Role(RoleTypes roleType) {
 		super();
 		this.roleType = roleType;
-		members = new ArrayList<ForumMember>();
+		members = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -67,10 +67,6 @@ public class Role {
 
 	public List<ForumMember> getMembers() {
 		return members;
-	}
-
-	public void setUsers(List<ForumMember> members) {
-		this.members = members;
 	}
 
 	public void addUser(ForumMember member) {

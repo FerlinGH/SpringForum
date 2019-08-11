@@ -5,18 +5,20 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeAdapter {
 
+	private LocalDateTimeAdapter() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static String describeCurrentTime() {
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		String time = currentTime.format(formatter).toString();
 
-		return time;
+		return currentTime.format(formatter);
 	}
-	
+
 	public static String describeTime(LocalDateTime currentTime) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		String time = currentTime.format(formatter).toString();
-		return time;
+		return currentTime.format(formatter);
 	}
 
 }

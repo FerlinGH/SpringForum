@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
 
 	private RoleRepository roleRepository;
 	private ForumMemberRepository forumMemberRepository;
-	private static Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
 	@Autowired
 	public RoleServiceImpl(RoleRepository roleRepository, ForumMemberRepository forumMemberRepository) {
@@ -32,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional
 	public void createRole(Role role) {
 		roleRepository.save(role);
-		LOGGER.info("Role created: " + role);
+		logger.info("Role created: {}", role);
 
 	}
 
@@ -45,8 +45,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Set<Role> getRolesByUsername(String username) {
 		ForumMember forumMember = forumMemberRepository.findWithRolesByUsername(username);
-		Set<Role> roles = forumMember.getRoles();
-		return roles;
+		return forumMember.getRoles();
 	}
 
 }

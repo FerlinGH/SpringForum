@@ -45,20 +45,20 @@ public class Topic {
 
 	@Column(name = "last_message")
 	private String lastMessageTime;
-	
+
 	@Column(name = "last_message_sec")
 	private long lastMessageTimeSec;
 
 	public Topic() {
 		super();
-		messages = new ArrayList<Message>();
+		messages = new ArrayList<>();
 	}
 
 	public Topic(String title, ForumMember author) {
 		super();
 		this.title = title;
 		this.author = author;
-		messages = new ArrayList<Message>();
+		messages = new ArrayList<>();
 	}
 
 	// public Topic(String title, User author, Board board) {
@@ -123,8 +123,6 @@ public class Topic {
 	public void setLastMessageTime(String lastMessageTime) {
 		this.lastMessageTime = lastMessageTime;
 	}
-	
-	
 
 	public long getLastMessageTimeSec() {
 		return lastMessageTimeSec;
@@ -135,9 +133,7 @@ public class Topic {
 	}
 
 	public void addMessage(Message message) {
-		if ((message.getTopicTitle() == null)) {
-			message.setTopicTitle(this.getTitle());
-		} else if (!message.getTopicTitle().equals(this.getTitle())) {
+		if ((message.getTopicTitle() == null) || (!message.getTopicTitle().equals(this.getTitle()))) {
 			message.setTopicTitle(this.getTitle());
 		}
 		message.setTopic(this);
@@ -153,5 +149,4 @@ public class Topic {
 				+ ", lastMessageTimeSec=" + lastMessageTimeSec + "]";
 	}
 
-	
 }

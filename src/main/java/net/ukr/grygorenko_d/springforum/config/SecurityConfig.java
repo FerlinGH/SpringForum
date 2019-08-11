@@ -14,6 +14,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String MODERATOR = "MODERATOR";
+	private static final String ADMIN = "ADMIN";
+	private static final String MEMBER = "MEMBER";
 	private UserDetailsService userDetailsService;
 	private PasswordEncoder passwordEncoder;
 
@@ -40,15 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/showBoard/**").permitAll()
 				.antMatchers("/topic/show/**").permitAll()
-				.antMatchers("/topic/new/**").hasRole("MEMBER")
-				.antMatchers("/topic/validateTopic/**").hasRole("MEMBER")
-				.antMatchers("/topic/delete/**").hasRole("ADMIN")
-				.antMatchers("/topic/rename/**").hasRole("MODERATOR")
-				.antMatchers("/topic/setNewTopicName/**").hasRole("MODERATOR")
-				.antMatchers("/message/new/**").hasRole("MEMBER")
-				.antMatchers("/message/validateMessage/**").hasRole("MEMBER")
-				.antMatchers("/message/edit/**").hasRole("MEMBER")
-				.antMatchers("/message/delete/**").hasRole("ADMIN")
+				.antMatchers("/topic/new/**").hasRole(MEMBER)
+				.antMatchers("/topic/validateTopic/**").hasRole(MEMBER)
+				.antMatchers("/topic/delete/**").hasRole(ADMIN)
+				.antMatchers("/topic/rename/**").hasRole(MODERATOR)
+				.antMatchers("/topic/setNewTopicName/**").hasRole(MODERATOR)
+				.antMatchers("/message/new/**").hasRole(MEMBER)
+				.antMatchers("/message/validateMessage/**").hasRole(MEMBER)
+				.antMatchers("/message/edit/**").hasRole(MEMBER)
+				.antMatchers("/message/delete/**").hasRole(ADMIN)
 				.antMatchers("/forumMember/create/**").permitAll()
 				.antMatchers("/forumMember/validateProfile/**").permitAll()				
 			.and()

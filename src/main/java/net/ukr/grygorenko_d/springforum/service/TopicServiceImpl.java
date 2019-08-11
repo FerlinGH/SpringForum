@@ -25,7 +25,7 @@ public class TopicServiceImpl implements TopicService {
 	private MessageRepository messageRepository;
 	private BoardRepository boardRepository;
 	private TopicRepository topicRepository;
-	private static Logger LOGGER = LoggerFactory.getLogger(TopicServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(TopicServiceImpl.class);
 
 	public TopicServiceImpl() {
 		super();
@@ -69,7 +69,7 @@ public class TopicServiceImpl implements TopicService {
 		board.addTopic(topic);
 
 		boardRepository.save(board);
-		LOGGER.info("New topic created: " + topic);
+		logger.info("New topic created: {}", topic);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class TopicServiceImpl implements TopicService {
 
 	@Override
 	public Map<Boolean, String> validatetopic(String topicName, Message message) {
-		Map<Boolean, String> validationStatus = new HashMap<Boolean, String>();
+		Map<Boolean, String> validationStatus = new HashMap<>();
 		if (topicName.equals("")) {
 			validationStatus.put(false, "Topic name cannot be emtpy!");
 			return validationStatus;
@@ -98,7 +98,7 @@ public class TopicServiceImpl implements TopicService {
 	@Transactional
 	public void deleteTopicById(int topicId) {
 		topicRepository.deleteById(topicId);
-		LOGGER.info("Topic deleted, ID was " + topicId);
+		logger.info("Topic deleted, ID was {}", topicId);
 
 	}
 
@@ -106,7 +106,7 @@ public class TopicServiceImpl implements TopicService {
 	@Transactional
 	public void updateTopic(Topic topic) {
 		topicRepository.save(topic);
-		LOGGER.info("Topic renamed: " + topic);
+		logger.info("Topic renamed: {}", topic);
 
 	}
 
